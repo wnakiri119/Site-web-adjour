@@ -1,0 +1,50 @@
+<div class="container py-5">
+  <form (ngSubmit)="askExpeditionPrice()" [formGroup]="obtenirPrixForm">
+
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInRight wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.home_ask_extimation_price_form_label_poids}}</mat-label>
+          <input matInput placeholder="10 KG" type="number" formControlName="poids">
+          <mat-error *ngIf="obtenirPrixForm.controls.poids.errors?.required">veillez entrer le poids de l'article</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="25" class="animate__animated animate__fadeInLeft wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.home_ask_extimation_price_form_label_hauteur}}</mat-label>
+          <input matInput placeholder="10" type="number" formControlName="hauteur">
+          <mat-error *ngIf="obtenirPrixForm.controls.hauteur.errors?.required">Champ obligatoire</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="animate__animated animate__fadeInLeft wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.form_ask_price_largeur}}</mat-label>
+          <input matInput placeholder="0.5m" type="number" formControlName="largeur">
+          <mat-error *ngIf="obtenirPrixForm.controls.largeur.errors?.required">veillez spécifier ce champ</mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInRight wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.home_ask_extimation_price_form_label_adress_from}}</mat-label>
+          <input matInput placeholder="Douala Cameroun" type="number" formControlName="adressFrom">
+          <mat-error *ngIf="obtenirPrixForm.controls.adressFrom.errors?.required">Adresse depart est obligaoire</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.home_ask_extimation_price_form_label_address_till}}</mat-label>
+          <input matInput placeholder="0.5m" type="number" formControlName="adressTill">
+          <mat-error *ngIf="obtenirPrixForm.controls.adressTill.errors?.required">veillez spécifier ce champ</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <br/>
+    <button mat-raised-button color="warn" class="animate__animated animate__fadeInDown wow">{{appSettings.langue?.home_ask_extimation_price_form_label_submit}}</button>
+
+  </form>
+</div>

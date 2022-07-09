@@ -1,0 +1,174 @@
+<app-carousel-main></app-carousel-main>
+
+<div class="pt-md-5 pt-2">
+  <div class="container pt-3 animate__animated animate__fadeInDownBig wow">
+    <h4 class="font-4xl text-center text-muted">{{appSettings.langue?.home_small_describe_title}}</h4>
+
+    <br/>
+
+    <app-carousel-small></app-carousel-small>
+  </div>
+
+  <div class="bg-muted-5 my-3">
+    <br/>
+
+
+    <div class="container animate__animated animate__zoomIn wow">
+      <app-best-trajet-carrousel></app-best-trajet-carrousel>
+
+    </div>
+
+  </div>
+
+
+
+  <!--<div class="bg-maron-fade mt-2 mb-5 py-5 rounded text-center">
+
+    <br/>
+
+    <span class="font-4xl animate__animated  animate__fadeInUp wow">{{appSettings.langue?.home_ask_extimation_price_form_title}}</span>
+
+    <app-extimation-price></app-extimation-price>
+
+
+
+
+  </div>-->
+
+
+
+
+  <div fxLayoutAlign="center start" class="my-3 animate__animated animate__rubberBand animate__delay-2s wow">
+    <h4 class="font-4xl text-uppercase text-muted">{{appSettings.langue?.region_visite}}</h4>
+  </div>
+
+  <div class="swiper-container animate__animated animate__flash wow" [swiper]="configVilleVisite">
+    <div class="swiper-wrapper h-auto">
+      <div class="swiper-slide pb-5 lh text-white" *ngFor="let item of cardVillesVisites">
+
+        <img [src]="item.img" class="img-fluid img-meduin" alt="ville visite">
+        <br>
+        <br>
+
+        <div fxLayoutAlign="center">
+          <span class="font-2xl text-muted">{{item.name}}</span>
+        </div>
+
+
+      </div>
+    </div>
+
+    <button mat-mini-fab color="accent" class="swiper-button-prev swipe-arrow bg-muted"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-mini-fab color="accent" class="swiper-button-next swipe-arrow bg-muted"><mat-icon>keyboard_arrow_right</mat-icon></button>
+  </div>
+
+
+  <div class="bg-muted3 py-5">
+
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h4 class="font-4xl text-uppercase text-danger animate__animated animate__fadeInLeft wow">{{appSettings.langue?.home_inscription_section_title}}</h4>
+
+      <br/>
+      <br/>
+
+      <div class="container px-md-5 animate__animated animate__fadeInRight wow">
+        <p class="text-center">{{appSettings.langue?.home_inscription_section_content}}</p>
+      </div>
+
+    </div>
+
+    <br/>
+    <br/>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+      <button class="btn btn-outline-danger btn--lg rounded-pill text-uppercase animate__animated animate__fadeInLeft wow">{{appSettings.langue.home_register_btn}}</button>
+      <button class="btn btn-outline-primary btn--lg ml-3 rounded-pill text-uppercase mt-sm-0 mt-md-0 mt-3 animate__animated animate__fadeInRight wow">{{appSettings.langue.home_signIn_btn}}</button>
+    </div>
+
+
+
+    <div class="container mt-4">
+
+      <div fxLayout="row wrap">
+        <div fxFlex="100" fxFlex.gt-sm="25"
+             class="px-3 mb-3 text-center animate__animated animate__zoomIn" *ngFor="let item of pointFort; let even = even; let odd = odd">
+
+          <p class="text-danger"><mat-icon class="font-7xl">{{item.iconeName}}</mat-icon></p>
+          <br/>
+
+          <span class="font-3xl text-danger">{{item.title}}</span>
+
+          <br/>
+          <br/>
+
+          <p class="text-justify">{{item.sutitle}}</p>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <app-partenaires></app-partenaires>
+
+  <div class="py-5 pt-5">
+    <div class="container text-center" id="contact">
+      <div fxLayout="row wrap">
+        <div fxFlex="100" class="pb-3">
+          <h4 class="font-3xl text-muted animate__animated animate__rubberBand animate__delay-5s wow">
+            {{appSettings.langue?.contact_us_form_title}}
+          </h4>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="50" class="pr-sm-3 mb-2 wow animate__animated" ngClass.gt-sm="animate__fadeInDown" ngClass.lt-sm="animate__fadeInLeft">
+          <img class="img-thumbnail" src="assets/img/Email-perf_blog1.jpg"/>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="50">
+          <mat-card class="animate__animated wow mt-sm-5 bg-red2 bg-muted-5 animate__delay-1s"  ngClass.gt-sm="animate__fadeInDown" ngClass.lt-sm="animate__fadeInLeft">
+            <form (ngSubmit)="sendFormulaire()" [formGroup]="contactForm">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft wow pr-sm-1">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{appSettings.langue?.contact_us_form_label_nom}}</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="contactForm.controls.name.errors?.required">Votre nom</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft animate__delay-1s wow pl-sm-1">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{appSettings.langue?.contact_us_form_label_email}}</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="contactForm.controls.email.errors?.required">Votre adresse email</mat-error>
+                    <mat-error *ngIf="contactForm.controls.email.errors?.invalidEmail">Email invalide</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="animate__animated animate__fadeInLeft animate__delay-2s wow">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{appSettings.langue?.contact_us_form_label_subject}}</mat-label>
+                    <input matInput formControlName="subject">
+                    <mat-error *ngIf="contactForm.controls.subject.errors?.required">veillez entrer le sujet</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" class="animate__animated animate__fadeInLeft animate__delay-3s wow">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{appSettings.langue?.contact_us_form_label_message}}</mat-label>
+                    <textarea matInput formControlName="message" rows="9"></textarea>
+                    <mat-error *ngIf="contactForm.controls.message.errors?.required">Dites nous quelque chose</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <br/>
+
+              <button mat-raised-button color="warn" class="animate__animated animate__fadeInLeft animate__delay-4s wow">{{appSettings.langue?.contact_us_form_send_btn}} <mat-icon>send</mat-icon></button>
+            </form>
+
+          </mat-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

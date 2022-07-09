@@ -1,0 +1,31 @@
+<div class="conatiner animate__animated animate__backInDown wow">
+  <div class="main-slider">
+    <div class="swiper-container" [swiper]="config">
+      <div class="swiper-wrapper">
+        <div *ngFor="let img of myCarouselImages" class="swiper-slide slide-item">
+          <div fxLayout="row wrap">
+            <!-- first column -->
+
+            <div fxFlex="100" fxFlex.gt-sm="50" [ngStyle]="getBgImage(img.img)">
+
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="text-muted " class="pl-4 mb-4">
+              <h4 class="font-weight-bold text-center text-uppercase">{{appSettings.code_langue == appSettings.codes[0]? img.title_fr: img.title_en}}</h4>
+
+              <br/>
+              <p class="text-justify">
+                {{appSettings.code_langue == appSettings.codes[0]? img.subtitle_fr: img.subtitle_en}}
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="swiper-pagination-2" class="swiper-pagination white swiper-pagination-personaliser row justify-content-center"></div>
+    </div>
+  </div>
+</div>
+

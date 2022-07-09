@@ -1,0 +1,12 @@
+<app-top-menu></app-top-menu>
+<div class="container_root">
+  <app-menu-router></app-menu-router>
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer>
+
+
+<div *ngIf="showBackToTop" fxLayout="row" fxLayoutAlign="center center" class="back-to-top transition" (click)="scrollToTop()">
+  <mat-icon>arrow_upward</mat-icon>
+</div>

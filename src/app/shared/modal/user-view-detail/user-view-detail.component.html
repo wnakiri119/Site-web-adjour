@@ -1,0 +1,120 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Détail Utilisateur</h4>
+</div>
+
+<div mat-dialog-content>
+
+  <mat-tab-group>
+
+    <mat-tab label="info">
+      <form (ngSubmit)="saveUser()" [formGroup]="userForm">
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-around start">
+
+          <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{appSettings.langue?.register_form_name}}</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="userForm.controls.name.errors?.required">{{appSettings.langue.register_form_error_name_required}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{appSettings.langue?.register_form_surname}}</mat-label>
+              <input matInput formControlName="surname">
+              <mat-error *ngIf="userForm.controls.surname.errors?.required">{{appSettings.langue.register_form_error_surname_required}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{appSettings.langue?.register_form_username}}</mat-label>
+              <input matInput formControlName="username">
+              <mat-error *ngIf="userForm.controls.username.errors?.required">{{appSettings.langue.register_form_error_username_required}}</mat-error>
+              <mat-error *ngIf="userForm.controls.username.errors?.invalidEmail">{{appSettings.langue.register_form_error_username_invalid_email}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50" class="pl-sm-4">
+            <span class="mr-3">{{appSettings.langue.register_form_sexe}}</span>
+            <mat-radio-group formControlName="sexe">
+              <mat-radio-button class="mr-3" value="Homme">H</mat-radio-button>
+              <mat-radio-button class="ml-3" value="Femme">F</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+
+          <div *ngIf="!updatPassword" class="mt-4">
+            <button mat-raised-button color="primary" type="button" (click)="updatPassword = true">Modifier mot de passe</button>
+          </div>
+
+          <div class="border-bottom m4-2 w-100"></div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50" class="mt-4" *ngIf="updatPassword">
+            <mat-form-field appearance="outline" class="w-100 pr-sm-1">
+              <mat-label>{{appSettings.langue?.register_form_password}}</mat-label>
+              <input matInput formControlName="password" type="password">
+              <mat-error *ngIf="userForm.controls.password.errors?.required">{{appSettings.langue.register_form_error_password_required}}</mat-error>
+              <mat-error *ngIf="userForm.controls.password.errors?.minLength">{{appSettings.langue.register_form_error_password_minlength}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50" class="mt-4" *ngIf="updatPassword">
+            <mat-form-field appearance="outline" class="w-100 pl-sm-1">
+              <mat-label>{{appSettings.langue?.register_form_password_confirm}}</mat-label>
+              <input matInput formControlName="passwordConfirm" type="password">
+              <mat-error *ngIf="userForm.controls.passwordConfirm.hasError('matchingPasswords')">{{appSettings.langue.register_form_error_password_confirm}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <br/>
+          <br/>
+          <br/>
+
+          <button mat-raised-button color="warn" *ngIf="updatPassword">{{appSettings.langue.btn_save}}</button>
+
+        </div>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="gestion">
+
+      <div fxLayout="row">
+
+        <div fxFlex="50" class="pr-sm-1">
+          <h4 class="text-muted">Authaurisation</h4>
+
+          <p class="text-info">Les authorizations en rouge sont celles activées. <br/>
+            Pour activer ou désactiver un role, faites un click dessus.</p>
+          <br/>
+
+          <mat-chip-list (valueChange)="getRoleSelected($event)">
+            <mat-chip color="warn" (click)="getRoleSelected('USER')" selected>USER</mat-chip>
+            <mat-chip color="warn" (click)="getRoleSelected('ADMIN')" [selected]="isAdmin()">ADMIN</mat-chip>
+          </mat-chip-list>
+        </div>
+
+
+        <div fxFlex="50" class="pl-sm-3">
+          <h4 class="text-muted">Etat</h4>
+          <p>Blocker ou débloquer un utilisateur</p>
+          <br>
+          <mat-checkbox [checked]="user.actived" (click)="lockAndAulockUser()"> {{user.actived?'Activé':'Désactivé'}}</mat-checkbox>
+        </div>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+</div>
+
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

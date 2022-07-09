@@ -1,0 +1,50 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon>Fermer</button>
+
+  <h4 class="text-center">Adresse</h4>
+</div>
+
+<div mat-dialog-content>
+
+  <form (ngSubmit)="saveAdresse()" [formGroup]="adressForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="le nom de l'agence">
+          <mat-error *ngIf="adressForm.controls.name.errors?.required">Veillez saisir le nom de l'agence</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pays</mat-label>
+          <mat-select (valueChange)="setPays($event)">
+            <mat-option *ngFor="let p of pays" [value]="p">{{p.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" *ngIf="villes">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Ville</mat-label>
+          <mat-select formControlName="villeId">
+            <mat-option *ngFor="let t of villes" [value]="t.id">{{t.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      <button mat-raised-button color="warn" class="ml-3" type="button"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+  </form>
+</div>
+
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

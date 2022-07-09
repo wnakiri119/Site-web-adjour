@@ -1,0 +1,495 @@
+<mat-card class="mt-4 w-100">
+
+  <h1 class="text-center text-primary mb-2">PARAMETRE GENERAL</h1>
+
+  <mat-card-content>
+     <mat-tab-group>
+
+       <mat-tab label="Pays && Villes">
+         <br/>
+         <button mat-raised-button color="primary"
+                 (click)="openSavePays(null)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter pays</button>
+
+         <button mat-raised-button color="primary"
+                 (click)="openSaveVille(null)"
+                 class="btn--lg ml-3"><mat-icon>add_circle</mat-icon> Ajouter ville</button>
+
+         <button mat-icon-button color="warn" matTooltip="Actualiser" (click)="findAllPays()"><mat-icon>loop</mat-icon></button>
+
+         <br/>
+
+         <table class="w-100 table table-bordered">
+
+           <tr>
+             <th>pays</th>
+             <th>Code</th>
+             <th>Longitude</th>
+             <th>Latitude</th>
+             <th>Action</th>
+           </tr>
+           <tr *ngFor="let p of pays">
+             <td>{{p.name}}</td>
+             <td>{{p.code}}</td>
+             <td>{{p.longitude}}</td>
+             <td>{{p.latitude}}</td>
+             <td class="px-0 pb-0">
+               <a mat-icon-button (click)="openSavePays(p)" matTooltip="editer pays" class="ml-4"><mat-icon>edit</mat-icon></a>
+               <a mat-icon-button (click)="getVille(p)" [matTooltip]="p.afficheVille?'masquer villes':'afficher villes'"><mat-icon>remove_red_eye</mat-icon></a>
+
+               <div *ngIf="p.afficheVille">
+                 <table class="table table-bordered w-100 p-0 m-0" *ngIf="p.villes?.length>0">
+                   <tr>
+                     <th>nom</th>
+                     <th>Longitude</th>
+                     <th>Latitude</th>
+                     <th>status</th>
+                     <th>Action</th>
+                   </tr>
+                   <tr *ngFor="let v of p.villes">
+                     <td>{{v.name}}</td>
+                     <td>{{v.longitude}}</td>
+                     <td>{{v.latitude}}</td>
+                     <td>
+                       <mat-chip-list *ngIf="v.actived">
+                         <mat-chip color="primary" selected>active</mat-chip>
+                       </mat-chip-list>
+                       <mat-chip-list *ngIf="!v.actived">
+                         <mat-chip color="warn" selected>desctivé</mat-chip>
+                       </mat-chip-list>
+                     </td>
+                     <td><a mat-icon-button (click)="openSaveVille(v)" matTooltip="editer ville"><mat-icon>edit</mat-icon></a></td>
+                   </tr>
+                 </table>
+
+                 <h2 class="text-muted text-center" *ngIf="p.villes?.length==0">/</h2>
+               </div>
+             </td>
+           </tr>
+         </table>
+
+       </mat-tab>
+
+        <mat-tab label="Agence">
+
+        <br/>
+        <button mat-raised-button color="primary"
+                (click)="openSaveAdressModal(null)"
+                class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+          <button mat-icon-button color="warn" (click)="findAddress()"><mat-icon>loop</mat-icon></button>
+
+
+          <div class="col-12 overflow-auto mt-4">
+          <table mat-table [dataSource]="dataSourceAgence" class="mat-elevation-z8 w-100" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="code">
+              <th mat-header-cell *matHeaderCellDef> Code </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.code}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nom d'agence </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="ville">
+              <th mat-header-cell *matHeaderCellDef> Ville </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.ville?.name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element" class="text-danger px-1">
+                <a class="cursor-pointer" (click)="openSaveAdressModal(element)"><mat-icon color="accent">edit</mat-icon></a>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAgence"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAgence;"></tr>
+          </table>
+        </div>
+      </mat-tab>
+
+       <mat-tab label="Employer">
+
+
+
+         <button mat-raised-button color="primary"
+                 (click)="openSaveEmployer(null)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSourceEmployer" class="mat-elevation-z8 w-100">
+             <!-- Position Column -->
+             <ng-container matColumnDef="id">
+               <th mat-header-cell *matHeaderCellDef> No </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="name">
+               <th mat-header-cell *matHeaderCellDef> Nom </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.userAccount?.name}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="surname">
+               <th mat-header-cell *matHeaderCellDef> Prenom </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.userAccount?.surname}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="matricule">
+               <th mat-header-cell *matHeaderCellDef> Matricule </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.matricule}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="dateCreated">
+               <th mat-header-cell *matHeaderCellDef> Créé le  </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.dateCreated}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="dateLastUpdate">
+               <th mat-header-cell *matHeaderCellDef> Modifier le </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.dateLastUpdate}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="code_agence">
+               <th mat-header-cell *matHeaderCellDef> Code Agence</th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.agence?.code}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="px-1"><button mat-icon-button color="primary" (click)="openSaveEmployer(element)"><mat-icon>edit</mat-icon></button> </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="displayedColumnsEmployer"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumnsEmployer;"></tr>
+           </table>
+         </div>
+
+         <mat-paginator class="my-2" color="primary" #employerPaginator
+                        (page)="pageEventEmployer=setPageEmployer($event)"
+                        [length]="totalItemEmployer" showFirstLastButtons
+                        [pageIndex]="pageEmployer"
+                        [pageSize]="25"
+                        [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+
+
+
+       </mat-tab>
+
+       <mat-tab label="Chauffeur">
+
+
+         <button mat-raised-button color="primary"
+                 (click)="openSaveChauffeur(null)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSourceChauffeur" class="mat-elevation-z8 w-100">
+             <!-- Position Column -->
+             <ng-container matColumnDef="id">
+               <th mat-header-cell *matHeaderCellDef> Identifiant </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="name">
+               <th mat-header-cell *matHeaderCellDef> Nom </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="surname">
+               <th mat-header-cell *matHeaderCellDef> prenom </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.surname}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="telephone">
+               <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.telephone}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="px-1"><button mat-icon-button color="primary" (click)="openSaveChauffeur(element)"><mat-icon>edit</mat-icon></button> </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="displayedColumnsChauffeur"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumnsChauffeur;"></tr>
+           </table>
+         </div>
+
+       </mat-tab>
+
+       <mat-tab label="Vehicule">
+
+         <button mat-raised-button color="primary"
+                 (click)="openSaveVehicule(null)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSourceVehicule" class="mat-elevation-z8 w-100">
+             <!-- Position Column -->
+             <ng-container matColumnDef="id">
+               <th mat-header-cell *matHeaderCellDef> Identifiant </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="imatriculation">
+               <th mat-header-cell *matHeaderCellDef> No Matriculation </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.imatriculation}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="model">
+               <th mat-header-cell *matHeaderCellDef> Model </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.model}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="marque">
+               <th mat-header-cell *matHeaderCellDef> Marque </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.marque}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="px-1"><button mat-icon-button color="primary" (click)="openSaveVehicule(element)"><mat-icon>edit</mat-icon></button> </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="displayedColumnsVehicule"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumnsVehicule;"></tr>
+           </table>
+         </div>
+
+
+       </mat-tab>
+
+       <mat-tab label="Status colis">
+         <button mat-raised-button color="primary"
+                 (click)="openSaveStatus(null, 1)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSourceStatusColis" class="mat-elevation-z8 w-100">
+             <!-- Position Column -->
+             <ng-container matColumnDef="id">
+               <th mat-header-cell *matHeaderCellDef> Identifiant </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="value">
+               <th mat-header-cell *matHeaderCellDef> Value </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.value}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="description">
+               <th mat-header-cell *matHeaderCellDef> Description </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.description}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="px-1"><button mat-icon-button color="primary" (click)="openSaveStatus(element, 1)"><mat-icon>edit</mat-icon></button> </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="statusHeader"></tr>
+             <tr mat-row *matRowDef="let row; columns: statusHeader;"></tr>
+           </table>
+         </div>
+
+       </mat-tab>
+
+       <mat-tab label="status Expédition">
+
+         <button mat-raised-button color="primary"
+                 (click)="openSaveStatus(null, 2)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSourceStatusExpedition" class="mat-elevation-z8 w-100">
+             <!-- Position Column -->
+             <ng-container matColumnDef="id">
+               <th mat-header-cell *matHeaderCellDef> Identifiant </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="value">
+               <th mat-header-cell *matHeaderCellDef> Value </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.value}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="description">
+               <th mat-header-cell *matHeaderCellDef> Description </th>
+               <td mat-cell *matCellDef="let element" class="px-1">{{element.description}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="px-1"><button mat-icon-button color="primary" (click)="openSaveStatus(element, 2)"><mat-icon>edit</mat-icon></button> </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="statusHeader"></tr>
+             <tr mat-row *matRowDef="let row; columns: statusHeader;"></tr>
+           </table>
+         </div>
+
+
+       </mat-tab>
+
+       <mat-tab label="Info Entrepise">
+
+
+
+         <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" *ngIf="enterpriseForm" class="my-4">
+
+           <form (ngSubmit)="saveEnterprise()" [formGroup]="enterpriseForm">
+             <div fxLayout="row wrap">
+               <div fxFlex="100">
+                 <mat-form-field appearance="outline" class="w-100">
+                   <mat-label>Nom de l'entreprise</mat-label>
+                   <input matInput formControlName="name">
+                   <mat-error *ngIf="enterpriseForm.controls.name.invalid">Veillez entrer le nom de l'entreprise</mat-error>
+                 </mat-form-field>
+               </div>
+               <div fxFlex="100">
+                 <mat-form-field appearance="outline" class="w-100">
+                   <mat-label>Email</mat-label>
+                   <input matInput formControlName="email">
+                   <mat-error *ngIf="enterpriseForm.controls.email.invalid">Adresse Email incorrect</mat-error>
+                 </mat-form-field>
+               </div>
+
+               <div fxFlex="100" fxFlex.gt-sm="50">
+                 <mat-form-field appearance="outline" class="w-100 pr-sm-1">
+                   <mat-label>Téléphone 1</mat-label>
+                   <input matInput formControlName="phone1">
+                   <mat-error *ngIf="enterpriseForm.controls.phone1.errors?.required">Numéro de téléphone obligatoire</mat-error>
+                   <mat-error *ngIf="enterpriseForm.controls.phone1.errors?.invalidNumeric">Ne doit contenir que des chiffres</mat-error>
+                 </mat-form-field>
+               </div>
+               <div fxFlex="100" fxFlex.gt-sm="50">
+                 <mat-form-field appearance="outline" class="w-100 pr-sm-1">
+                   <mat-label>Téléphone 2</mat-label>
+                   <input matInput formControlName="phone2">
+                   <mat-error *ngIf="enterpriseForm.controls.phone2.errors?.invalidNumeric">Ne doit contenir que des chiffres</mat-error>
+                 </mat-form-field>
+               </div>
+
+               <div fxFlex="100">
+                 <mat-form-field appearance="outline" class="w-100">
+                   <mat-label>Adresse</mat-label>
+                   <input matInput formControlName="adresse" #adresse>
+                   <mat-hint [align]="'end'">{{adresse.value?.length}}/255</mat-hint>
+                   <mat-error *ngIf="enterpriseForm.controls.adresse.errors?.maxLength">Ne doit pas dépasser 255 caractères</mat-error>
+                 </mat-form-field>
+               </div>
+             </div>
+
+             <div class="w-100 text-center">
+               <button mat-raised-button color="warn"><mat-icon>save</mat-icon> Enregistrer</button>
+             </div>
+           </form>
+
+         </div>
+
+       </mat-tab>
+
+       <mat-tab label="tarrification" disabled>
+
+         <br/>
+         <button mat-raised-button color="primary"
+                 (click)="openSaveTarificationModal(null)"
+                 class="btn--lg"><mat-icon>add_circle</mat-icon> Ajouter</button>
+
+         <div class="col-12 overflow-auto mt-4">
+           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100" matSort>
+             <!-- Position Column -->
+             <ng-container matColumnDef="source">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.adresseSourceName}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="destination">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.adresseDestinationeName}} </td>
+             </ng-container>
+
+             <!-- Name Column -->
+             <ng-container matColumnDef="poidsMin">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Poids Min (KG)</th>
+               <td mat-cell *matCellDef="let element" class="px-1 bg-muted2"> {{element.poidsMin}} </td>
+             </ng-container>
+
+             <!-- Weight Column -->
+             <ng-container matColumnDef="PoidsMax">
+               <th mat-header-cell *matHeaderCellDef> Poids Max (KG)</th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.poidsMax}} </td>
+             </ng-container>
+
+             <!-- Symbol Column -->
+             <ng-container matColumnDef="longueurMin">
+               <th mat-header-cell *matHeaderCellDef> Longueur Min (m)</th>
+               <td mat-cell *matCellDef="let element" class="px-1 bg-muted2"> {{element.longueMin}} </td>
+             </ng-container>
+
+             <!-- Symbol Column -->
+             <ng-container matColumnDef="longueurMax">
+               <th mat-header-cell *matHeaderCellDef> Longueur Max (m)</th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.longuerMax}} </td>
+             </ng-container>
+
+             <!-- Symbol Column -->
+             <ng-container matColumnDef="hauteurMin">
+               <th mat-header-cell *matHeaderCellDef> Hauteur min (m)</th>
+               <td mat-cell *matCellDef="let element" class="px-1 bg-muted2"> {{element.hauteurMin}} </td>
+             </ng-container>
+
+             <!-- Symbol Column -->
+             <ng-container matColumnDef="hauteurMax">
+               <th mat-header-cell *matHeaderCellDef> Hauteur Max </th>
+               <td mat-cell *matCellDef="let element" class="px-1"> {{element.hauteurMax}} </td>
+             </ng-container>
+
+             <ng-container matColumnDef="price">
+               <th mat-header-cell *matHeaderCellDef> Prix (CFA)</th>
+               <td mat-cell *matCellDef="let element" class="px-1 bg-blue-dark text-white"> {{element.price | number: '0.0'}} </td>
+             </ng-container>
+
+             <!-- Symbol Column -->
+             <ng-container matColumnDef="action">
+               <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element" class="text-danger px-1">
+                 <a class="cursor-pointer" (click)="editGrilleTarif(element)"><mat-icon color="accent">edit</mat-icon></a>
+               </td>
+             </ng-container>
+
+             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+           </table>
+         </div>
+         <mat-paginator class="my-2" color="primary" #tarificationPaginator
+                        (page)="pageEvent=setPage($event)"
+                        [length]="totalItem" showFirstLastButtons
+                        [pageIndex]="page"
+                        [pageSize]="200"
+                        [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+
+
+       </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+
+<ngx-spinner
+  size="small"
+  color="white">
+</ngx-spinner>

@@ -1,0 +1,15 @@
+<div fxLayout="row wrap" *ngIf="router.url != '/'">
+  <div fxFlex="100">
+    <mat-card fxLayout="row" class="breadcrumb bg-maron text-white">
+      <a *ngIf="router.url != '/'" routerLink="/" class="breadcrumb-item cursor-pointer" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon>home</mat-icon>
+        <span class="breadcrumb-title">Accueil</span>
+      </a>
+      <div *ngFor="let breadcrumb of breadcrumbs; let i = index;" class="breadcrumb-item" fxLayout="row" fxLayoutAlign="start center">
+        <a [hidden]="i == (breadcrumbs.length - 1)" [routerLink]="breadcrumb.url" class="cursor-pointer">{{breadcrumb.name}}</a>
+        <span [hidden]="i != (breadcrumbs.length - 1)" class="breadcrumb-title active"><b>{{breadcrumb.name}}</b></span>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

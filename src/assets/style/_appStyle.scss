@@ -1,0 +1,327 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-family: 'Montserrat', sans-serif;;
+}
+
+app-footer{
+  width: 100%;
+}
+
+.s-error{
+  background-color: #F80000;
+  color: white;
+  padding: 10px;
+}
+
+.s-warning {
+  background-color: #E76E0A;
+  color: white;
+  padding: 10px;
+}
+
+.s-success {
+  background-color: #42841A;
+  color: white;
+  padding: 10px;
+}
+
+.bg-green-dark {
+  background-color: #2C5F3C;
+  color: #fff;
+}
+.bg-green {
+  background-color: #4b9434;
+}
+
+.bg-blue-dark {
+  background-color: #0B497D;
+  color: #fff;
+}
+.bg-blue{
+  background-color: #8DDBF5;
+}
+
+.bg-muted2 {
+  background-color: #F2F2F2;
+}
+
+.bg-muted-5 {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.bg-muted3 {
+  background-color: #CEC2CC;
+}
+
+.bg-muted-4{
+  background-color: #b2adb1;
+}
+
+.bg-red2 {
+  background-color: #f4cdc3;
+}
+
+.bg-red {
+  background-color: #CB3C26;
+  color: #fff;
+}
+
+.bg-fade{
+  background: rgb(210,226,238);
+  background: linear-gradient(90deg, rgba(210,226,238,1) 0%, rgba(183,203,218,0.8533788515406162) 33%, rgba(166,180,191,1) 100%);
+}
+
+.bg-maron {
+  background-color: #343535;
+}
+
+.bg-maron-fade {
+  background-color: rgba(52,53,53,0.1);
+}
+.border-marron {
+  border-color: rgba(242,242,242,0.5);
+}
+
+.border-lg {
+  border-width: 3rem;
+}
+
+.border-md {
+  border-width: 2rem;
+}
+.border-sm {
+  border-width: 1rem;
+}
+
+.lh{
+  line-height: 27px;
+}
+
+.lh-35{
+  line-height: 35px;
+}
+.lh-50{
+  line-height: 50px;
+}
+.lh-18{
+  line-height: 18px;
+}
+
+.lh-20{
+  line-height: 20px;
+}
+
+.lh-22{
+  line-height: 22px;
+}
+
+.lh-default{
+  line-height: 1.5em;
+}
+
+a{
+  outline: none;
+  text-decoration: none;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.hover-white:hover{
+  color: white;
+}
+.bg-hover-muted:hover{
+  background-color: #C9C9BE;
+}
+
+.font-xl {
+  font-size: 1.25rem !important;
+}
+
+.font-2xl {
+  font-size: 1.5rem !important;
+}
+
+.font-3xl {
+  font-size: 1.75rem !important;
+}
+
+.font-4xl {
+  font-size: 2rem !important;
+}
+
+.font-5xl {
+  font-size: 2.5rem !important;
+}
+
+.font-6xl {
+  font-size: 3rem !important;
+}
+
+.font-7xl {
+  font-size: 4rem;
+}
+.logo{
+  width: 120px;
+  height: 120px;
+}
+
+/*img.logo {
+  max-width: 100px;
+  max-height: 100px;
+}*/
+.img-meduin {
+  height: 350px;
+  width: 100%;
+}
+
+.btn--lg{
+  font-size: 18px;
+  padding: 5px 50px;
+}
+
+._btn{
+
+}
+
+.btn--sm {
+  min-width: 100px;
+  min-height: 50px;
+}
+.z-i-6{
+  z-index: 6;
+}
+
+.z-i-10{
+  z-index: 10;
+}
+
+button.swipe-arrow{
+  position: absolute;
+  top: 50%;
+  margin-top: -22px;
+  z-index: 10;
+  opacity: 0.6;
+  width: 50px;
+  height: auto;
+  background-image: none;
+}
+.swiper-slide{
+  background-size: 100%;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.social-icon{
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  fill: #8f8f8f;
+  outline: none;
+}
+li{
+  list-style-type: square;
+  line-height: 1.5em;
+}
+
+.li-p-0 {
+  list-style-position: outside;
+}
+
+/******* Back to top *******/
+.back-to-top{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 999999;
+  right: 20px;
+  bottom: 20px;
+  opacity: .5;
+  color: #fff;
+  background-color: rgba(0,0,0,.75);
+  border-radius: 4px;
+  &:hover{
+    opacity: 0.9;
+  }
+}
+
+.transition{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+}
+
+@media (max-width: 975px) {
+
+  .font-xl {
+    font-size: 1.5rem !important;
+  }
+
+  .font-2xl {
+    font-size: 1.5rem !important;
+  }
+
+  .font-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  .font-4xl {
+    font-size: 1.75rem !important;
+  }
+
+  .font-5xl {
+    font-size: 1.75rem !important;
+  }
+
+  .font-6xl {
+    font-size: 2rem !important;
+  }
+
+  .font-7xl {
+    font-size: 2.25rem;
+  }
+
+}
+
+@media (max-width: 625px) {
+
+  .font-xl {
+    font-size: 0.5rem !important;
+  }
+
+  .font-2xl {
+    font-size: 0.75rem !important;
+  }
+
+  .font-3xl {
+    font-size: 1rem !important;
+  }
+
+  .font-4xl {
+    font-size: 1.25rem !important;
+  }
+
+  .font-5xl {
+    font-size: 1.5rem !important;
+  }
+
+  .font-6xl {
+    font-size: 1.75rem !important;
+  }
+
+  .font-7xl {
+    font-size: 2rem;
+  }
+
+}
+
+
+
+

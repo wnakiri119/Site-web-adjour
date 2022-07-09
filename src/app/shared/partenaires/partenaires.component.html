@@ -1,0 +1,20 @@
+<div class="brands-carousel my-5">
+  <div class="row justify-content-center">
+    <h5 class="text-muted font-weight-bold my-2 font-2xl text-uppercase">{{appSetting.langue?.home_partenaire_title}}</h5>
+  </div>
+  <div class="swiper-container h-100 border border-muter rounded" [swiper]="config">
+    <!--<a mat-button routerLink="/brands">Voir toutes les marques</a>-->
+    <div class="swiper-wrapper h-100">
+      <div *ngFor="let brand of cardsImages" class="swiper-slide border-muter border rounded cursor-pointer">
+
+        <div class="brand-item">
+
+          <img [src]="brand.img"/>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-icon-button class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+  </div>
+</div>
+

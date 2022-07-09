@@ -1,0 +1,224 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon>Fermer</button>
+
+  <h4 class="text-center">Colis</h4>
+</div>
+
+<div mat-dialog-content>
+
+  <mat-horizontal-stepper linear>
+
+    <mat-step [stepControl]="colisForm">
+      <ng-template matStepLabel>Info Colis</ng-template>
+
+
+      <form [formGroup]="colisForm">
+
+        <div fxLayout="row wrap" fxLayoutAlign="center">
+          <div fxFlex="100" fxFlex.gt-sm="60" class="pr-sm-4">
+
+            <div fxLayout="row wrap">
+
+              <div fxFlex="100">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Nom</mat-label>
+                  <input matInput formControlName="name">
+                  <mat-error *ngIf="colisForm.controls.name.errors?.required">Veillez entrer le nom du produit</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="60">
+                <mat-form-field appearance="outline" class="w-100 pr-2">
+                  <mat-label>Montant expédition</mat-label>
+                  <input matInput formControlName="amountExpedition" type="number">
+                  <mat-error *ngIf="colisForm.controls.amountExpedition.errors?.required">Prix expéditiion du colis</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="40">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Quantité</mat-label>
+                  <input matInput formControlName="quantity" type="number">
+                  <mat-error *ngIf="colisForm.controls.quantity.errors?.required">Quantité obligatoire</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="33">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Poids</mat-label>
+                  <input matInput formControlName="poids" type="number">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.gt-sm="33">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Largeur</mat-label>
+                  <input matInput formControlName="largeur" type="number">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" fxFlex.gt-sm="33">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Hauteur</mat-label>
+                  <input matInput formControlName="hauteur" type="number">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="50">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Nature</mat-label>
+                  <mat-select formControlName="nature">
+                    <mat-option *ngFor="let n of natureColis" [value]="n">{{n}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="colisForm.controls.nature.errors?.required">Quel est la nature de ce produit?</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="100" fxFlex.gt-sm="50">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Valeur</mat-label>
+                  <mat-select formControlName="valeur">
+                    <mat-option *ngFor="let v of valeursColis" [value]="v.value">{{v.label}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="colisForm.controls.valeur.errors?.required">Quel est la valeur de ce produit?</mat-error>
+                </mat-form-field>
+              </div>
+
+
+              <div fxFlex="100">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="description" rows="5"></textarea>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="40" class="pl-sm-4">
+            <div *ngIf="!colis.client">
+              <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>propriétaire du colis</mat-label>
+                <input matInput id="clientId" #seachCustumer (click)="showUserPannel()" (keyup)="clientFindByName($event)" placeholder="selectionner le propriétaire de ce colis" required>
+                <mat-error *ngIf="colisForm.controls.clientId.errors?.required">A qui appartient ce colis?</mat-error>
+              </mat-form-field>
+
+              <div class="pl-sm-4 w-100 userdiv mat-elevation-z8 z-i-6" *ngIf="showUser">
+                <p class="text-info text-muted py-2" *ngIf="seachCustumer.value=='' && clients.length==0">Veillez saisir le du client...</p>
+                <p class="text-info text-muted py-2" *ngIf="seachCustumer.value && clients.length == 0">Pas trouvé. <button mat-button (click)="seeDetailForClient(null)">Nouveau Client</button></p>
+
+                <button mat-menu-item class="w-100 text-muted my-1 border-0 text-left" *ngFor="let u of clients">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="85" class="pr-1">
+                      <span class="cursor-pointer" (click)="setIdClient(u)">{{u.name +' '+  u.surname}}</span>
+                    </div>
+                    <div fxFlex="15">
+                      <a class="cursor-pointer" (click)="seeDetailForClient(u)"><mat-icon >remove_red_eye</mat-icon></a>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-2 w-100" *ngIf="agences">
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Destination du colis</mat-label>
+                <mat-select formControlName="arriveId">
+                  <mat-option [value]="a.id" *ngFor="let a of agences">{{a.ville?.name +' -> '+ a.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="colisForm.controls.arriveId.errors?.required">Destination du colis</mat-error>
+              </mat-form-field>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="center" class="my-1">
+          <button mat-raised-button class="mr-2" type="reset"><mat-icon>refresh</mat-icon> Annuler</button>
+          <button mat-mini-fab matStepperNext><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+
+      </form>
+
+    </mat-step>
+
+    <mat-step [stepControl]="desFrom">
+      <ng-template matStepLabel>Info Destinataire</ng-template>
+
+      <form [formGroup]="desFrom" (ngSubmit)="saveColis()">
+
+        <div fxLayout="row wrap">
+
+          <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-form-field appearance="outline" class="w-100 pr-1">
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="desFrom.controls.name.errors?.required">Veillez entrer le nom du destinataire</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="50">
+            <mat-form-field appearance="outline" class="w-100 pr-1">
+              <mat-label>Prenom</mat-label>
+              <input matInput formControlName="surname">
+              <mat-error *ngIf="desFrom.controls.surname.errors?.required">Veillez entrer le prénom du destinataire</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="75">
+            <mat-form-field appearance="outline" class="w-100 pr-1">
+              <mat-label>Téléphone</mat-label>
+              <input matInput formControlName="telephone">
+              <mat-hint>{{desFrom.controls.telephone.value?.length}}/9</mat-hint>
+              <mat-error *ngIf="desFrom.controls.telephone.errors?.required">Veillez entrer le numéro de téléphone du destinataire</mat-error>
+              <mat-error *ngIf="desFrom.controls.telephone.errors?.invalidNumeric">Le numéro de téléphone est incorrect. uniquement des nombre</mat-error>
+              <mat-error *ngIf="desFrom.controls.telephone.errors?.maxLength">Le numéro de téléphone trop grand 9 caractère maximun</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="75">
+            <mat-form-field appearance="outline" class="w-100 pr-1">
+              <mat-label>adresse Email</mat-label>
+              <input matInput formControlName="email">
+              <mat-error *ngIf="desFrom.controls.email.errors?.invalidEmail">Adresse email incorrect</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-sm="75">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>relation client destinataire</mat-label>
+              <mat-select formControlName="relationClientDestinataire">
+                <mat-option *ngFor="let v of relationClientDestinataireOptions" [value]="v">{{v}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="desFrom.controls.relationClientDestinataire.errors?.required">Relation client destinataire</mat-error>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+
+        <div fxLayoutAlign="center">
+          <br/>
+          <button mat-mini-fab matStepperPrevious  class="mr-1"><mat-icon>keyboard_arrow_left</mat-icon></button>
+          <button mat-raised-button color="warn"><mat-icon>save</mat-icon> Enregistrer</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+</ngx-spinner>

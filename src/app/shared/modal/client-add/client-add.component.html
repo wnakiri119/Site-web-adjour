@@ -1,0 +1,77 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon>Fermer</button>
+
+  <h4 class="text-center">Client</h4>
+</div>
+
+<div mat-dialog-content>
+  <form (ngSubmit)="saveClient()" [formGroup]="formGroup">
+
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100 pr-1">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="f.name.invalid">Veillez entrer le nom du client</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100 pr-1">
+          <mat-label>Prenom</mat-label>
+          <input matInput formControlName="surname">
+          <mat-error *ngIf="f.surname.invalid">Veillez entrer le prénom du client</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100 pr-1">
+          <mat-label>Téléphone</mat-label>
+          <input matInput #phone maxlength="9" formControlName="telephone">
+          <mat-hint align="end">{{phone.value?.length+'/'+9}}</mat-hint>
+          <mat-error *ngIf="f.telephone.errors?.required">Veillez entrer le Numéro de téléphone du client</mat-error>
+          <mat-error *ngIf="f.telephone.errors?.invalidNumeric">Uniquement des nombres</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100 pr-1">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="f.email.errors?.invalidEmail">Adresse email invalide</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <mat-radio-group formControlName="sexe">
+          <mat-radio-button value="Homme">Homme</mat-radio-button>
+          <mat-radio-button value="Femme">Femme</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field class="w-75" appearance="fill">
+          <mat-label>Date de Naissace</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateNaissance" [required]="false">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      <button mat-raised-button color="warn" class="ml-3" type="button"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+
+  </form>
+</div>
+
+
+
+<ngx-spinner
+  size="small"
+  color="white">
+</ngx-spinner>

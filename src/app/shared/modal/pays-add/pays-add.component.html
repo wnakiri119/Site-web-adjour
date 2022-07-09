@@ -1,0 +1,49 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Pays</h4>
+</div>
+
+<div mat-dialog-content>
+  <form (ngSubmit)="savePays()" [formGroup]="paysForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="75">
+        <mat-form-field appearance="outline" class="w-100 pr-2">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="paysForm.controls.name.errors?.required">veillez entrer le nom du pays</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Code Pays</mat-label>
+          <input matInput formControlName="code">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="mr-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Longitude</mat-label>
+          <input matInput formControlName="longitude">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="mr-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>latitude</mat-label>
+          <input matInput formControlName="latitude">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      <button mat-raised-button color="warn" class="ml-3" type="button"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+  </form>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

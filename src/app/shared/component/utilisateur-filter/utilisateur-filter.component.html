@@ -1,0 +1,9 @@
+<mat-form-field appearance="legacy" class="w-100">
+  <mat-label>Compte Employer</mat-label>
+  <input matInput id="idUser" [formControl]="formControl"  #searchUser placeholder="selectionner un compte" required>
+  <mat-error *ngIf="formControl.errors?.required">Veillez remplir ce champ</mat-error>
+</mat-form-field>
+
+<div class="w-100 userdiv mat-elevation-z3 mb-3">
+  <button mat-menu-item class="w-100 text-muted my-1 border-0 text-left" *ngFor="let u of users | searchUser: searchUser.value" (click)="setIdUser(u)">{{u.name +' '+  u.surname}}</button>
+</div>

@@ -1,0 +1,65 @@
+<mat-card class="py-3 menu" id="_menu">
+  <mat-toolbar class="bg-white" *ngIf="appSettings.langue">
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
+      <span routerLink="/">
+        <img src="assets/logo/logo_binsarl.png" class="logo mt-4" alt="logo-enterprise"/>
+      </span>
+      <div fxShow="false" fxShow.gt-sm fxFlexOffset="15" fxFlex="85">
+        <!--<div fxLayout="row" fxFlexAlign="space-around start">
+          <button class="btn btn-danger btn&#45;&#45;lg rounded-pill text-uppercase" routerLink="/register"></button>
+          <button class="btn btn-outline-primary btn&#45;&#45;lg mx-3 rounded-pill text-uppercase" routerLink="/sign-in" ></button>
+          <a mat-button color="warn" class="font-2xl">{{appSettings.langue.home_change_langage}}</a>
+        </div>-->
+        <div fxLayout="column" fxLayoutAlign="start down">
+
+          <span class="theme text-uppercase animate__animated" id="info" [ngClass]="{'animate__backInDown':show,'animate__backOutUp': !show}"><!--<mat-icon>{{message.icon}}</mat-icon>--> {{message.value}}</span>
+
+          <div class="menu-item h-auto py-1 rounded">
+
+            <button mat-button routerLink="/" class="text-white text-uppercase font-weight-bold"><mat-icon>home</mat-icon>Accueil</button>
+            <button mat-button routerLink="/about-us" class="text-white text-uppercase font-weight-bold"><mat-icon>domain</mat-icon>Qui sommes nous ?</button>
+            <button mat-button class="text-white text-uppercase font-weight-bold" [matMenuTriggerFor]="service"><mat-icon> beenhere</mat-icon>{{appSettings.langue.prestation_service_menu}} <mat-icon>arrow_drop_down</mat-icon></button>
+            <button mat-button routerLink="/contact-us" class="text-white text-uppercase font-weight-bold"><mat-icon>phone</mat-icon>contactez-nous</button>
+            <button mat-button class="text-white text-uppercase font-weight-bold" [matMenuTriggerFor]="monCompte"><mat-icon>person</mat-icon>Mon compte <mat-icon>arrow_drop_down</mat-icon> </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxHide="false" fxHide.gt-sm>
+        <button mat-icon-button [matMenuTriggerFor]="menuItem" class="font-3xl"><mat-icon>menu</mat-icon></button>
+
+        <mat-menu #menuItem="matMenu" [overlapTrigger]="false" xPosition="before" class="mat-elevation-z8" fxLayout="column" fxLayoutAlign="space-between center">
+          <button mat-menu-item routerLink="/about-us"><mat-icon>domain</mat-icon>Qui sommes nous ?</button>
+          <button mat-menu-item [matMenuTriggerFor]="service"><mat-icon> beenhere</mat-icon>{{appSettings.langue.prestation_service_menu}}</button>
+          <button mat-menu-item routerLink="/contact-us"><mat-icon>phone</mat-icon>contactez-nous</button>
+          <button mat-menu-item [matMenuTriggerFor]="monCompte"><mat-icon>person</mat-icon>Mon compte</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <mat-menu #service="matMenu" xPosition="after" [overlapTrigger]="false" class="animate__animated animate__fadeInDown">
+      <button mat-menu-item [matMenuTriggerFor]="serviceSubMenu">{{appSettings.langue.prestation_service_menu_item_1}}</button>
+      <button mat-menu-item [routerLink]="['/services','transport']">{{appSettings.langue.prestation_service_menu_item_2}}</button>
+      <button mat-menu-item [routerLink]="['/services','espace-rangement']">{{appSettings.langue.prestation_service_menu_item_3}}</button>
+    </mat-menu>
+
+    <mat-menu #serviceSubMenu="matMenu" xPosition="after" [overlapTrigger]="false" class="animate__animated animate__fadeInRight">
+      <button [routerLink]="['/services']" mat-menu-item>{{appSettings.langue.prestation_service_menu_item_1_1}}</button>
+      <button [routerLink]="['/services','chargement-nationaux']" mat-menu-item>{{appSettings.langue.prestation_service_menu_item_1_2}}</button>
+    </mat-menu>
+
+    <mat-menu #monCompte="matMenu" xPosition="after" class="animate__animated animate__fadeInDown">
+      <button mat-menu-item routerLink="/register" *ngIf="!authService.isUser()">{{appSettings.langue.home_register_btn}}</button>
+      <button mat-menu-item routerLink="/dashboard" *ngIf="authService.isUser()">{{appSettings.langue.top_menu_go_to_account_btn}}</button>
+
+      <button mat-menu-item routerLink="/sign-in" *ngIf="!authService.isUser()">{{appSettings.langue.home_signIn_btn}}</button>
+      <button mat-menu-item (click)="logOut()" *ngIf="authService.isUser()">{{appSettings.langue.top_menu_deconnexion_btn}}</button>
+      <button mat-menu-item [mat-menu-trigger-for]="language">Langue : {{appSettings.code_langue}}</button>
+    </mat-menu>
+
+    <mat-menu #language="matMenu" class="animate__animated animate__fadeInRight">
+      <button mat-menu-item *ngFor="let c of appSettings.codes">{{c}}</button>
+    </mat-menu>
+  </mat-toolbar>
+</mat-card>

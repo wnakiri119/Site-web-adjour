@@ -1,0 +1,78 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">CREER UNE EXPEDITION</h4>
+</div>
+
+<div mat-dialog-content>
+  <form (ngSubmit)="saveExpedition()" [formGroup]="expeditionForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="50" class="pr-2">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Date de départ</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateDepart">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="expeditionForm.controls.dateDepart.errors?.required">Veillez selectioner la date</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pl-2 border-left">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="45">
+            <mat-form-field appearance="fill" class="w-100">
+              <input matInput type="number" formControlName="heureDepart_heure" placeholder="heure">
+            </mat-form-field>
+          </div>
+          <div fxFlex="10">
+            <h1 class="text-center">:</h1>
+          </div>
+          <div fxFlex="45">
+            <mat-form-field appearance="fill" class="w-100">
+              <input matInput type="number" formControlName="heureDepart_minute" placeholder="min">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <div fxFlex="100">
+        <mat-form-field class="w-100" appearance="outline" *ngIf="agence">
+          <mat-label>Agence Destination</mat-label>
+          <mat-select formControlName="adressDestinationId" placeholder="selectioner l'agence de destination">
+            <mat-option *ngFor="let a of agence" [value]="a.id">{{a.ville?.name}} -> {{a.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="expeditionForm.controls.adressDestinationId.errors?.required">Veillez renseaigner la destination</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <mat-form-field class="w-100" appearance="outline" *ngIf="chauffeurs">
+          <mat-label>Chauffeur</mat-label>
+          <mat-select formControlName="chauffeurId" placeholder="selection chaffeur">
+            <mat-option *ngFor="let a of chauffeurs" [value]="a.id">{{a.name}} {{a.surname}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="expeditionForm.controls.chauffeurId.errors?.required">Champ oblogatoire</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <mat-form-field class="w-100" appearance="outline" *ngIf="vehicules">
+          <mat-label>Vehicule</mat-label>
+          <mat-select formControlName="vehiculeId" placeholder="selection Vehicule">
+            <mat-option *ngFor="let a of vehicules" [value]="a.id">{{a.imatriculation}} -> {{a.marque}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="text-center py-2">
+        <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<ngx-spinner
+  size="small"
+  color="white"
+  name="expeditionAdd"
+>
+</ngx-spinner>

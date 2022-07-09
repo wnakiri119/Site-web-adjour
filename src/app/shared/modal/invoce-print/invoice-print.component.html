@@ -1,0 +1,177 @@
+<div mat-dialog-content>
+  <div class="bg-muted2 p-2">
+    <div fxLayout="row wrap" class="mt-3 mb-1">
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <img id="logo18" src="assets/logo/logo_binsarl.png" class="logo" alt="logo-enterprise"/>
+        <br/>
+        <p>{{entrerprise?.adresse}}</p>
+        <p>{{entrerprise?.phone1}}</p>
+        <p>{{entrerprise?.phone2}}</p>
+        <p>{{entrerprise?.email}}</p>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <h2 class="text-primary">FACTURE CLIENT</h2>
+        <p>Facture #{{invoice?.code}}</p>
+        <p>Facture date {{invoice?.dateLastUpdate}}</p>
+        <p>A Payer {{invoice?.amount}}</p>
+        <p>Code client {{invoice?.colis[0]?.client?.codeClient}}</p>
+        <p>Code employer {{invoice?.colis[0]?.enregistrerPar?.id}}</p>
+      </div>
+
+    </div>
+
+    <div fxLayout="row wrap">
+      <!-- from -->
+      <div fxFlex="100" fxFlex.gt-sm="50" class="pr-sm-2">
+        <h5 class="text-primary">DE</h5>
+
+        <table class="table table-bordered border-left-0 border-right-0 bg-white">
+          <tbody>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Nom Complet</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.client?.name + ' ' + invoice.colis[0]?.client?.surname}}</td>
+            </tr>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Téléphone</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.client?.telephone}}</td>
+            </tr>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Adresse Email</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.client?.email}}</td>
+            </tr>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Agence</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.depart?.name}}</td>
+            </tr>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Ville</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.depart?.ville?.name}}</td>
+            </tr>
+            <tr>
+              <th class="border-left-0 my-0 py-0">Pays</th>
+              <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.depart?.ville?.paysName}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <!-- end from -->
+
+      <!-- To -->
+      <div fxFlex="100" fxFlex.gt-sm="50" class="pl-sm-2">
+        <h5 class="text-primary">A</h5>
+
+        <table class="table table-bordered border-left-0 border-right-0 bg-white">
+          <tbody>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Nom Complêt</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.destinataire?.name + ' ' + invoice.colis[0]?.client?.surname}}</td>
+          </tr>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Téléphone</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.destinataire?.telephone}}</td>
+          </tr>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Adresse Email</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.destinataire?.email}}</td>
+          </tr>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Agence</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.arrive?.name}}</td>
+          </tr>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Ville</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.arrive?.ville?.name}}</td>
+          </tr>
+          <tr>
+            <th class="border-left-0 my-0 py-0">Pays</th>
+            <td class="border-right-0 my-0 py-0">{{invoice.colis[0]?.arrive?.ville?.paysName}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+      <!-- thirth line -->
+
+      <div fxFlex="100" fxFlex.gt-sm="33.3" class="py-1">
+        <h5 class="text-primary">RELATION</h5>
+        <p>{{invoice.colis[0].destinataire?.relationClientDestinataire}}</p>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="33.3" class="py-1 mr-0 pr-sm-2">
+        <h5 class="text-primary">NUMERO FACTURE</h5>
+        <div class="py-1 bg-white small-heigth">
+          <div fxLayoutAlign="start center">{{invoice.code}}</div>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="33.3" class="py-1 pr-sm-2">
+        <h5 class="text-primary">DATE FACTURE</h5>
+        <div class="bg-white small-heigth pt-2">
+          <p>{{invoice.dateCreated?invoice.dateCreated:getDate()}}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" class="mt-2">
+      <div fxFlex="100">
+        <h5 class="text-primary">CONTENUS</h5>
+
+        <table class="table table-borderless bg-white">
+          <thead>
+            <tr>
+              <th class="border-bottom my-0 py-0">Nom</th>
+              <th class="border-bottom my-0 py-0">Quantité</th>
+              <th class="border-bottom my-0 py-0">Code</th>
+              <th class="border-bottom my-0 py-0">Poids(KG)</th>
+              <th class="border-bottom my-0 py-0">Prix(XAF)</th>
+            </tr>
+
+            <tr *ngFor="let colis of invoice.colis">
+              <td class="border-bottom my-0 py-0">{{colis.name}}</td>
+              <td class="border-bottom my-0 py-0">{{colis.quantity}}</td>
+              <td class="border-bottom my-0 py-0">{{colis.code}}</td>
+              <td class="border-bottom my-0 py-0">{{colis.poids}}</td>
+              <td class="border-bottom my-0 py-0">{{colis.amountExpedition | number: '0.0'}}</td>
+            </tr>
+            <tr>
+              <td class="my-0 py-0 text-right" colspan="3">Total</td>
+              <td class="border-bottom border-top my-0 py-0">{{totalWeigth}}</td>
+              <td class="border-bottom border-top my-0 py-0">{{totalAmount | number: '0.0'}}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+   <div fxLayout="row wrap" class="mt-2">
+     <div fxFlex="100" fxFlex.gt-sm="50">
+       <div class="bg-white text-justify w-100">
+         <small>**Mercie pour votre fidélité**</small>
+       </div>
+     </div>
+
+     <div fxFlex="100" fxFlex.gt-sm="50">
+       <div fxFlex="100" fxFlex.gt-sm="70" class="pl-sm-3">
+         <div class="bg-white small-heigth-2 w-100">
+
+
+         </div>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button [disabled]="invoice.id != null || invoice.colis[0]?.colisStatus?.id >=2" mat-raised-button color="warn" class="ml-2" (click)="imprimer()"><mat-icon>save_alt</mat-icon> Imprimer</button>
+  <button mat-raised-button color="primary" class="ml-2" (click)="close()"><mat-icon>close</mat-icon> Anuler</button>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white" [fullScreen]="false">
+
+</ngx-spinner>

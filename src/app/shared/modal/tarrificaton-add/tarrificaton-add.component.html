@@ -1,0 +1,98 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon>Fermer</button>
+  <h4 class="text-center">Tarification</h4>
+</div>
+<div mat-dialog-content>
+  <form (ngSubmit)="saveTarification()" [formGroup]="formGroup">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Montant</mat-label>
+          <input matInput formControlName="price" required>
+          <mat-error *ngIf="formGroup.controls.price.errors?.required">Veillez renseigner le montant</mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <!-- infos poids -->
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pr-1" appearance="outline">
+          <mat-label>Poids Min(en KG)</mat-label>
+          <input matInput formControlName="poidsMin" required>
+          <mat-error *ngIf="formGroup.controls.poidsMin.errors?.required">Veillez renseigner le poids minimun</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pl-1" appearance="outline">
+          <mat-label>Poids Max(en KG)</mat-label>
+          <input matInput formControlName="poidsMax" required>
+          <mat-error *ngIf="formGroup.controls.poidsMax.errors?.required">Veillez renseigner le poids max</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- infos longueur -->
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pr-1" appearance="outline">
+          <mat-label>Longueur Min (en mètre)</mat-label>
+          <input matInput formControlName="longueMin" required>
+          <mat-error *ngIf="formGroup.controls.longueMin.errors?.required">Veillez renseigner la longueur minimun</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pl-1" appearance="outline">
+          <mat-label>Longueur Max (en mètre)</mat-label>
+          <input matInput formControlName="longuerMax" required>
+          <mat-error *ngIf="formGroup.controls.longuerMax.errors?.required">Veillez renseigner La longueur max</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- infos largeur -->
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pr-1" appearance="outline">
+          <mat-label>Hauteur Min (en mètre)</mat-label>
+          <input matInput formControlName="hauteurMin" required>
+          <mat-error *ngIf="formGroup.controls.hauteurMin.errors?.required">Veillez renseigner la hauteur minimun</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pl-1" appearance="outline">
+          <mat-label>Hauteur Max (en mètre)</mat-label>
+          <input matInput formControlName="hauteurMax" required>
+          <mat-error *ngIf="formGroup.controls.hauteurMax.errors?.required">Veillez renseigner La hauteur max</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- infos poids -->
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pr-1" appearance="outline">
+          <mat-label>Adresse départ</mat-label>
+          <mat-select formControlName="adrSourceId">
+            <mat-option *ngFor="let source of tarificationHelper.adresseSource" [value]="source.id">{{source.id + '-' + source.paysName + '-' + source.villeName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.controls.adrSourceId.errors?.required">Veillez selectionner l'adresse de départ</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field class="w-100 pr-1" appearance="outline">
+          <mat-label>Adresse Arrivée</mat-label>
+          <mat-select formControlName="adrDestinationId">
+            <mat-option *ngFor="let source of tarificationHelper.adresseDestination" [value]="source.id">{{source.id + '-' + source.paysName + '-' + source.villeName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.controls.adrDestinationId.errors?.required">Veillez selectionner l'adresse d'arrivée</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" mat-dialog-actions>
+      <button mat-raised-button color="primary" class="mt-1" matTooltip="enregistrer"><mat-icon>save</mat-icon>Valider</button>
+      <button mat-raised-button class="bg-maron mx-2 mt-1" type="button" matTooltip="annuler la modification" (click)="remouveId()"><mat-icon>undo</mat-icon> retirer ID</button>
+      <button mat-raised-button color="warn"  class="mt-1 mr-2" type="reset" matTooltip="recommencer à zéro"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+  </form>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

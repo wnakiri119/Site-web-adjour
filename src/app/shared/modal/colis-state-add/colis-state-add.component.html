@@ -1,0 +1,29 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Status des colis</h4>
+</div>
+
+<div mat-dialog-content>
+
+  <form (ngSubmit)="saveState()" [formGroup]="statusForm">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="value">
+      <mat-error *ngIf="statusForm.controls.value.errors?.required">Nommer l'état</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="4" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+  </form>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

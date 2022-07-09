@@ -1,0 +1,91 @@
+<mat-card class="container my-5 py-3" fxFlex="100" fxFlex.gt-sm="50" fxFlexOffset.gt-sm="25">
+
+  <h1 class="text-center text-primary mb-2">MON COMPTE UTILISATEUR</h1>
+
+  <form (ngSubmit)="updateUser()" [formGroup]="registerForm">
+    <br/>
+    <h3 class="font-4xl text-uppercase text-center">Mise à jour du compte</h3>
+    <br/>
+    <div fxLayout="row wrap" fxLayoutAlign="space-around start">
+
+
+      <div fxFlex="50">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>date création</mat-label>
+          <input matInput formControlName="dateCreated">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>date mise a jour</mat-label>
+          <input matInput formControlName="dateLastUpdate">
+        </mat-form-field>
+      </div>
+
+
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.register_form_name}}</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="registerForm.controls.name.errors?.required">{{appSettings.langue.register_form_error_name_required}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="50">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.register_form_surname}}</mat-label>
+          <input matInput formControlName="surname">
+          <mat-error *ngIf="registerForm.controls.surname.errors?.required">{{appSettings.langue.register_form_error_surname_required}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.register_form_username}}</mat-label>
+          <input matInput formControlName="username">
+          <mat-error *ngIf="registerForm.controls.username.errors?.required">{{appSettings.langue.register_form_error_username_required}}</mat-error>
+          <mat-error *ngIf="registerForm.controls.username.errors?.invalidEmail">{{appSettings.langue.register_form_error_username_invalid_email}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <span class="mr-3">{{appSettings.langue.register_form_sexe}}</span>
+        <mat-radio-group formControlName="sexe">
+          <mat-radio-button class="mr-3" value="Homme">H</mat-radio-button>
+          <mat-radio-button class="ml-3" value="Femme">F</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.register_form_password}}</mat-label>
+          <input matInput formControlName="password" type="password">
+          <mat-error *ngIf="registerForm.controls.password.errors?.required">{{appSettings.langue.register_form_error_password_required}}</mat-error>
+          <mat-error *ngIf="registerForm.controls.password.errors?.minLength">{{appSettings.langue.register_form_error_password_minlength}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.register_form_password_confirm}}</mat-label>
+          <input matInput formControlName="passwordConfir">
+          <mat-error *ngIf="registerForm.controls.passwordConfir.hasError('matchingPasswords')">{{appSettings.langue.register_form_error_password_confirm}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <br/>
+      <br/>
+      <br/>
+
+      <button mat-raised-button color="warn">{{appSettings.langue.btn_save}}</button>
+
+    </div>
+  </form>
+
+  <div style="height: 100px"></div>
+</mat-card>
+
+

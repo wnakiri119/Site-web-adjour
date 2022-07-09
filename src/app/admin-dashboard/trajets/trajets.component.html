@@ -1,0 +1,352 @@
+<mat-card class="mt-2 w-100">
+  <h4 class="text-center text-primary">COLIS && EXPEDITIONS</h4>
+
+  <mat-card-content>
+
+
+    <mat-tab-group>
+
+      <mat-tab label="Client">
+        <div class="row">
+          <div class="col-md-6 col-8">
+            <mat-form-field class="w-100" appearance="fill">
+              <mat-label>recherche dans colis</mat-label>
+              <input matInput (keyup)="applyFilterClient($event)" placeholder="Recherche dans le tableau">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 col-4 pr-5">
+            <div fxLayoutAlign="end">
+              <button mat-icon-button color="warn" matTooltip="actualiser la liste" (click)="clientFindAll()"><mat-icon>loop</mat-icon></button>
+              <button color="primary" mat-raised-button matTooltip="Ajouter un nouveau cleint" (click)="clientSave(null)"><mat-icon>add_circle</mat-icon> Ajouter</button>
+              <button color="primary" mat-raised-button class="ml-2" matTooltip="envoie de mail a un ou plusieurs client" (click)="sendEmailForClientSelected()"><mat-icon>email</mat-icon> Mails</button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-12 overflow-auto">
+          <table mat-table [dataSource]="dataSourceClient" class="mat-elevation-z8 w-100" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.codeClient}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="surname">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.surname}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="telephone">
+              <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.telephone}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="dateCreation">
+              <th mat-header-cell *matHeaderCellDef> Créé le </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateCreated}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="dateLastUpdate">
+              <th mat-header-cell *matHeaderCellDef> Modifier le </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateLastUpdate}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="isUser">
+              <th mat-header-cell *matHeaderCellDef> A un Compte </th>
+              <td mat-cell *matCellDef="let element" class="px-1">
+                <mat-chip-list>
+                  <mat-chip [selected]="element.acountClient" color="warn">
+                    <span *ngIf="element.acountClient">OUI</span>  <span *ngIf="!element.acountClient">NON</span>
+                  </mat-chip>
+                </mat-chip-list>
+              </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="sexe">
+              <th mat-header-cell *matHeaderCellDef> Sexe </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.sexe}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateNais">
+              <th mat-header-cell *matHeaderCellDef> Né le </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateNaissance}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element" class="text-danger px-1">
+                <a class="cursor-pointer" (click)="clientSave(element)"><mat-icon color="accent">edit</mat-icon></a>
+                <a class="cursor-pointer mx-1" (click)="clientDetail(element)"><mat-icon color="primary">remove_red_eye</mat-icon></a>
+                <mat-checkbox [value]="element.email" (change)="selectClientEmail($event)" matTooltip="Selectionez le client a qui le mail doit être envoyé"></mat-checkbox>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsClient"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsClient;"></tr>
+          </table>
+        </div>
+
+        <mat-paginator #paginatorClient class="my-2" color="primary"
+                       (page)="setPageClient($event)"
+                       [length]="totalItemsClient" showFirstLastButtons
+                       [pageIndex]="pageClient"
+                       [pageSize]="25"
+                       [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+      </mat-tab>
+
+
+      <mat-tab label="Colis">
+        <br/>
+
+
+        <div class="row">
+          <div class="col-md-6 col-8">
+            <mat-form-field class="w-100" appearance="fill">
+              <mat-label>recherche dans colis</mat-label>
+              <input matInput (keyup)="applyFilterColis($event)" placeholder="Recherche dans le tableau">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 col-4 pr-5">
+            <div fxLayout="row wrap" fxLayoutAlign="end">
+              <mat-checkbox (change)="findColis(!colisIsArchived)" [checked]="colisIsArchived" class="mr-3">Colis Archivés</mat-checkbox>
+              <button mat-icon-button color="warn" (click)="findColis(colisIsArchived)"><mat-icon>loop</mat-icon></button>
+              <button color="primary" mat-raised-button class="ml-2" (click)="colisSave(null)"><mat-icon>add_circle</mat-icon> Ajouter</button>
+              <button color="primary" mat-raised-button class="ml-2" (click)="sendEmail()"><mat-icon>email</mat-icon> Mails</button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-12 overflow-auto">
+          <table mat-table [dataSource]="dataSourceColis" class="mat-elevation-z8 w-100" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="code">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="poids">
+              <th mat-header-cell *matHeaderCellDef> Poids </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.poids}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nature">
+              <th mat-header-cell *matHeaderCellDef> Nature </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.nature}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="valeur">
+              <th mat-header-cell *matHeaderCellDef> Valeur </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.valeur}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="propretaire">
+              <th mat-header-cell *matHeaderCellDef> Propriétaire </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.client?.name + ' '+ element.client?.surname}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="destinataire">
+              <th mat-header-cell *matHeaderCellDef> Destinataire </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.destinataire?.name + ' '+ element.destinataire?.surname}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="dateLastUpdate">
+              <th mat-header-cell *matHeaderCellDef> Modifié le </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateLastUpdate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="montant">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> montant </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition | number: '0.0'}}XAF </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.quantity | number: '0.0'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition * element.quantity | number: '0.0'}}XAF </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element" class="text-danger px-1">
+                <a mat-icon-button [disabled]="element.archiver" matTooltip="modifier"  (click)="colisSave(element)"><mat-icon color="accent">edit</mat-icon></a>
+                <a (click)="seeDetailColis(element)" matTooltip="Voir les details"><mat-icon color="primary">remove_red_eye</mat-icon></a>
+                <a mat-icon-button [disabled]="element.colisStatus?.id >=2"  (click)="colisPrint(element)" matTooltip="générer facture"><mat-icon color="primary">save_alt</mat-icon></a>
+
+                <mat-checkbox [value]="element.id" (change)="selectColis($event)" matTooltip="Selectionez pour envoyer un mail a prepriétaire du colis"></mat-checkbox>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsColis"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsColis;"></tr>
+          </table>
+        </div>
+
+        <mat-paginator #colisPaginator class="my-2" color="primary"
+                       (page)="pageEventColis=setPageColis($event)"
+                       [length]="totalItem" showFirstLastButtons
+                       [pageIndex]="page"
+                       [pageSize]="25"
+                       [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+      </mat-tab>
+
+
+
+      <mat-tab label="Expéditions effectuées">
+
+        <form (ngSubmit)="findTrajetForPeriode()" [formGroup]="periodeForm">
+          <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <div fxFlex="40" fxFlex.gt-sm="15">
+              <mat-form-field appearance="fill" class="w-100 pr-1">
+
+                <mat-label>De</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="from">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="periodeForm.controls.from.errors?.required">De</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="40" fxFlex.gt-sm="15">
+              <mat-form-field appearance="fill"  class="w-100 px-1">
+                <mat-label>A</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="till">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="periodeForm.controls.till.errors?.required">select date</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="20" fxFlex.gt-sm="10" class="pl-1">
+              <button mat-icon-button color="primary"><mat-icon>keyboard_arrow_right</mat-icon></button>
+            </div>
+
+            <div fxFlex="80" fxFlex.gt-sm="30">
+              <mat-form-field class="w-100" appearance="fill">
+                <mat-label>recherche</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Recherche dans le tableau">
+              </mat-form-field>
+            </div>
+            <div fxFlex="20" fxFlex.gt-sm="20" class="pl-sm-4">
+              <button mat-raised-button color="primary" (click)="expeditionSave(null)"><mat-icon>save</mat-icon> Créer Expédition</button>
+              <button mat-icon-button color="warn" matTooltip="Actualiser la table" class="ml-1" (click)="expeditionFindAll()"><mat-icon>loop</mat-icon></button>
+            </div>
+          </div>
+        </form>
+
+
+
+        <div class="col-12 overflow-auto mt-1">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="dateDepart">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date/heure départ </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateDepart +' '+element.heureDepart}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="dateArrive">
+              <th mat-header-cell *matHeaderCellDef> Date/heure arrivée </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateArrive +' '+element.heureArrive}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="nbreColis">
+              <th mat-header-cell *matHeaderCellDef> Code colis </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.nombreColis}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="adresseSource">
+              <th mat-header-cell *matHeaderCellDef> Origine </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.depart?.ville?.name + '(' + element.depart?.name +')'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="adresseDestination">
+              <th mat-header-cell *matHeaderCellDef> destination </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.arrive?.ville?.name + '(' + element.arrive?.name + ')'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="updateEtat">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element" class="px-1"> {{element.expeditionStatus?.value}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element" class="text-danger px-1">
+                <a class="cursor-pointer" matTooltip="Modifier l'expédition" (click)="expeditionSave(element)"><mat-icon class="text-muted">edit</mat-icon></a>
+                <a class="cursor-pointer" matTooltip="Voir les détails" (click)="seeDetail(element)"><mat-icon color="primary">description</mat-icon></a>
+                <a class="cursor-pointer" matTooltip="suppression définitif de l'expétion" (click)="expeditionDelete(element)"><mat-icon color="warn">delete</mat-icon></a>
+                <a class="cursor-pointer" matTooltip="Modifier le Status de l'expédition" (click)="expeditionSetStatus(element)"><mat-icon class="text-primary">loop</mat-icon></a>
+                <a class="cursor-pointer" matTooltip="Envoyer un email a toutes les personnes possédant un colis dans cette expédition" (click)="sendEmailExpedition(element)"><mat-icon class="text-primary">mail</mat-icon></a>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <mat-paginator class="my-2" color="primary" #expeditionPaginator
+                       (page)="pageEvent=setPage($event)"
+                       [length]="totalItem" showFirstLastButtons
+                       [pageIndex]="page"
+                       [pageSize]="25"
+                       [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+      </mat-tab>
+
+
+    </mat-tab-group>
+
+
+
+  </mat-card-content>
+</mat-card>
+
+<ngx-spinner
+  size="small"
+  color="white">
+</ngx-spinner>

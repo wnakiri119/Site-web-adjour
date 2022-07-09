@@ -1,0 +1,73 @@
+<mat-card fxLayout="row wrap" fxLayoutAlign="space-around">
+  <div fxFlex="100" fxFlex.gt-xs="33.3">
+    <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
+      <mat-icon color="primary" class="mat-icon-lg">home</mat-icon>
+      <h3 class="primary-text py-1">ADDRESS :</h3>
+      <span><u class="text-muted font-weight-bold">Contact Tchad</u></span>
+      <span class="text-muted">Avenue du 10 Octobre</span>
+      <hr>
+      <span><u class="text-muted font-weight-bold">Contact Tchad 2</u></span>
+      <span class="text-muted">Bongor Tchad,  Quartier commerçant</span>
+    </div>
+  </div>
+  <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <mat-icon color="primary" class="mat-icon-lg">call</mat-icon>
+      <h3 class="primary-text py-1">TELEPHONE :</h3>
+      <span class="text-muted">(235) 66 29 95 85</span>
+      <span class="text-muted">(235) 66 25 42 95</span>
+      <span class="text-muted">(235) 691 81 20 42</span>
+    </div>
+  </div>
+  <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <mat-icon color="primary" class="mat-icon-lg">mail_outline</mat-icon>
+      <h3 class="primary-text py-1">E-MAIL :</h3>
+      <span class="text-muted">wnakiri119@gmail.com</span>/
+    </div>
+  </div>
+  <div class="divider w-100 mt-2"></div>
+  <h3 class="w-100 text-center py-2 animate__animated animate__rubberBand animate__delay-5s wow">CONTACTEZ NOUS</h3>
+
+  <form (ngSubmit)="sendFormulaire()" [formGroup]="contactForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.contact_us_form_label_nom}}</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="contactForm.controls.name.errors?.required">Votre nom</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft animate__delay-1s wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.contact_us_form_label_email}}</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="contactForm.controls.email.errors?.required">Votre adresse email</mat-error>
+          <mat-error *ngIf="contactForm.controls.email.errors?.invalidEmail">Email invalide</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft animate__delay-2s wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.contact_us_form_label_subject}}</mat-label>
+          <input matInput formControlName="subject">
+          <mat-error *ngIf="contactForm.controls.subject.errors?.required">veillez entrer le sujet</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlexOffset.gt-sm="25" fxFlex.gt-sm="50" class="animate__animated animate__fadeInLeft animate__delay-3s wow">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>{{appSettings.langue?.contact_us_form_label_message}}</mat-label>
+          <textarea matInput formControlName="message" rows="9"></textarea>
+          <mat-error *ngIf="contactForm.controls.message.errors?.required">Dites nous quelque chose</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <br/>
+
+    <div fxLayoutAlign="center">
+      <button mat-raised-button color="warn" class="animate__animated animate__fadeInLeft animate__delay-4s wow">
+        {{appSettings.langue?.contact_us_form_send_btn}}
+      </button>
+    </div>
+  </form>
+
+</mat-card>

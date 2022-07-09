@@ -1,0 +1,175 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Expédition Panel</h4>
+
+  <div mat-dialog-content>
+
+    <h2 class="text-muted text-primary"><u>Info Expédition</u></h2>
+
+    <div fxLayout="row wrap" class="table-container">
+      <div fxFlex="100">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th>Nombre de Colis</th>
+              <td class="pr-5">{{expedition.nombreColis | number: '0.0'}}</td>
+
+
+              <th>Poids</th>
+              <td class="pr-5">{{poids | number: '0.0'}} KG</td>
+
+              <th class="text-danger">Montant Total</th>
+              <td class="pr-5 text-danger">{{totalAmount | number: '0.0'}}XAF</td>
+            </tr>
+
+            <tr>
+              <th>Status</th>
+              <td class="pr-5">{{expedition.expeditionStatus?.value}}</td>
+
+
+              <th>Conducteur</th>
+              <td><span class="text-primary">#{{expedition.chauffeur.id}}</span> {{expedition.chauffeur?.name + ' ' + expedition.chauffeur?.surname}}</td>
+
+              <th>Vehicule</th>
+              <td>{{expedition.vehicule?.marque}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div fxFlex="100" fxFlex.gt-sm="50" class="pr-sm-5 py-2 text-muted">
+        <h4 class="font-weight-bold text-info">Origine</h4>
+        <table class="table table-borderless">
+          <tbody>
+          <tr>
+            <th>Agence</th>
+            <td>{{expedition.depart?.ville?.name + '(' + expedition.depart?.name +')'}}</td>
+          </tr>
+          <tr>
+            <th>Date/Heure départ</th>
+            <td>{{expedition.dateDepart +' '+expedition.heureDepart}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="50" class="pr-sm-5 pb-2 text-muted">
+        <h4 class="font-weight-bold text-info">Destination</h4>
+        <table class="table table-borderless">
+          <tbody>
+          <tr>
+            <th>Agence</th>
+            <td>{{expedition.arrive?.ville?.name + '(' + expedition.arrive?.name +')'}}</td>
+          </tr>
+          <tr>
+            <th>Date/Heure Arrivée</th>
+            <td>{{expedition.dateArrive +' '+expedition.heureArrive}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <mat-divider></mat-divider>
+
+    <div class="col-md-6 col-8">
+      <mat-form-field class="w-100" appearance="fill" [style.fontSize.px]="12">
+        <mat-label>recherche dans colis</mat-label>
+        <input matInput (keyup)="applyFilterColis($event)" placeholder="Recherche dans le tableau">
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 overflow-auto">
+      <table mat-table [dataSource]="dataSourceColis" class="mat-elevation-z8 w-100" matSort>
+        <!-- Position Column -->
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="poids">
+          <th mat-header-cell *matHeaderCellDef> Poids </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.poids}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="nature">
+          <th mat-header-cell *matHeaderCellDef> Nature </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.nature}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="valeur">
+          <th mat-header-cell *matHeaderCellDef> Valeur </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.valeur}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="propretaire">
+          <th mat-header-cell *matHeaderCellDef> Propriétaire </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.client?.name + ' '+ element.client?.surname}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="destinataire">
+          <th mat-header-cell *matHeaderCellDef> Destinataire </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.destinataire?.name + ' '+ element.destinataire?.surname}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="dateLastUpdate">
+          <th mat-header-cell *matHeaderCellDef> Modifié le </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateLastUpdate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="montant">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> montant </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition | number: '0.0'}}XAF </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.quantity | number: '0.0'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+          <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition * element.quantity | number: '0.0'}}XAF </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element" class="text-danger px-1">
+            <a mat-icon-button  (click)="seeDetailColis(element)" matTooltip="Voir les details"><mat-icon color="primary">remove_red_eye</mat-icon></a>
+            <a mat-icon-button  (click)="removeColis(element)" matTooltip="retirer le colis de l'expedition">X</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsColis"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsColis;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator class="my-2" color="primary"
+                   [pageSize]="25"
+                   [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+
+  </div>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white"
+  [fullScreen]="false">
+</ngx-spinner>

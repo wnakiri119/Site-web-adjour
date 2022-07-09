@@ -1,0 +1,76 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Employer</h4>
+</div>
+
+<div mat-dialog-content>
+  <mat-horizontal-stepper linear #stepper>
+
+    <mat-step [stepControl]="employerForm">
+      <form [formGroup]="employerForm">
+        <ng-template matStepLabel>Infos Employers</ng-template>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Telephone</mat-label>
+          <input matInput formControlName="telephone" placeholder="Numéro de téléphone" type="number" required>
+          <mat-error *ngIf="employerForm.controls.telephone.errors?.required">Veillez entrer le numéro de téléphone de cette employer</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>email</mat-label>
+          <input matInput formControlName="email" placeholder="adresse email">
+          <mat-error *ngIf="employerForm.controls.email.errors?.invalidEmail">adresse email incorrect</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>No Matricule</mat-label>
+          <input matInput formControlName="matricule" placeholder="No matricule">
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="center" class="my-1">
+          <button mat-mini-fab color="warn" matStepperNext><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+
+      </form>
+    </mat-step>
+    <mat-step [completed]="accountIdControl.valid">
+      <ng-template matStepLabel>Liaison compte Utilisateur</ng-template>
+
+      <div fxLayout="row wrap" fxLayoutAlign="center center">
+
+        <div fxFlex="100">
+          <app-utilisateur-filter *ngIf="users" [nameUser]="employer?.userAccount?.name +' ' + employer?.userAccount?.surname" [users]="users" (value)="accountClientSetId($event)"></app-utilisateur-filter>
+        </div>
+
+        <div fxLayoutAlign="center">
+          <br/>
+          <button mat-mini-fab matStepperPrevious color="warn" class="mr-1"><mat-icon>keyboard_arrow_left</mat-icon></button>
+          <button mat-mini-fab matStepperNext color="warn"><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+
+      </div>
+    </mat-step>
+    <mat-step [completed]="agenceIdControl.valid">
+      <ng-template matStepLabel>Affectation agence</ng-template>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label>Nom agence</mat-label>
+        <input matInput (click)="showUserPannel()" [formControl]="agenceIdControl"  #searchUser  required>
+        <mat-error *ngIf="agenceIdControl.errors?.required">Veillez remplir ce champ</mat-error>
+      </mat-form-field>
+
+      <div class="w-100 userdiv mat-elevation-z3" *ngIf="showUser && agences">
+        <button mat-menu-item class="w-100 text-muted my-1 border-0 text-left" *ngFor="let ag of agences | searchByName: searchUser.value" (click)="setIdUser(ag)">{{ag.ville?.paysName + ' -> ' + ' -> '+ag.ville?.name + ' -> ' + ag.name}}</button>
+      </div>
+
+      <div fxLayoutAlign="center">
+        <br/>
+        <button mat-mini-fab matStepperPrevious color="warn" class="mr-1"><mat-icon>keyboard_arrow_left</mat-icon></button>
+        <button mat-raised-button color="primary" (click)="saveEmployer()"><mat-icon>save</mat-icon> Enregistrer</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white" [fullScreen]="false">
+</ngx-spinner>

@@ -1,0 +1,155 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Expédition Panel</h4>
+</div>
+
+<div mat-dialog-content class="h-auto">
+  <form (ngSubmit)="findColis()" [formGroup]="formGroup">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" fxFlex.gt-sm="22">
+        <mat-form-field appearance="fill" class="w-100" *ngIf="agencesDepart">
+          <mat-label>Agence Depart</mat-label>
+          <mat-select formControlName="agencesSource" multiple>
+            <mat-option *ngFor="let a of agencesDepart" [value]="a.id">{{a.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.controls.agencesSource.errors?.required">Veillez renseigner ce champ</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="22" class="pl-sm-2 pr-sm-3">
+        <mat-form-field appearance="fill" class="w-100" *ngIf="agencesArrive">
+          <mat-label>Agence Arrivée</mat-label>
+          <mat-select formControlName="agencesDestination" multiple>
+            <mat-option *ngFor="let a of agencesArrive" [value]="a.id">{{a.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="formGroup.controls.agencesDestination.errors?.required">Veillez renseigner ce champ</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="21" class="pl-sm-2">
+        <!--<mat-form-field appearance="fill" class="w-100">
+          <mat-label>De</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="from">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="formGroup.controls.from.errors?.required">Selectionner la date</mat-error>
+        </mat-form-field>-->
+        <div class="form-group">
+          <input placeholder="De" class="form-control" type="date" formControlName="from">
+        </div>
+        <span class="text-danger" *ngIf="formGroup.controls.from.errors?.required">Selectionner la date</span>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="21" class="px-sm-1">
+        <!--<mat-form-field appearance="fill" class="w-100">
+          <mat-label>A</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="till">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="formGroup.controls.till.errors?.required">Sélectionner la date</mat-error>
+        </mat-form-field>-->
+        <div class="form-group">
+          <input class="form-control" placeholder="A" type="date" formControlName="till">
+        </div>
+        <span class="text-danger" *ngIf="formGroup.controls.till.errors?.required">Selectionner la date</span>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-sm="10" class="text-right">
+        <button [disabled]="formGroup.invalid" mat-mini-fab><mat-icon>search</mat-icon></button>
+      </div>
+    </div>
+  </form>
+
+  <div class="col-12 overflow-auto">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100" matSort>
+      <!-- Position Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="poids">
+        <th mat-header-cell *matHeaderCellDef> Poids </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.poids}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="nature">
+        <th mat-header-cell *matHeaderCellDef> Nature </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.nature}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="valeur">
+        <th mat-header-cell *matHeaderCellDef> Valeur </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.valeur}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="propretaire">
+        <th mat-header-cell *matHeaderCellDef> Propriétaire </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.client?.name + ' '+ element.client?.surname}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="destinataire">
+        <th mat-header-cell *matHeaderCellDef> Destinataire </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.destinataire?.name + ' '+ element.destinataire?.surname}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="dateLastUpdate">
+        <th mat-header-cell *matHeaderCellDef> Modifié le </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.dateLastUpdate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="montant">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> montant </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition | number: '0.0'}}XAF </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.quantity | number: '0.0'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+        <td mat-cell *matCellDef="let element" class="px-1"> {{element.amountExpedition * element.quantity | number: '0.0'}}XAF </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action  <mat-checkbox (change)="checkAll($event)"></mat-checkbox></th>
+        <td mat-cell *matCellDef="let element" class="text-danger px-1">
+          <mat-checkbox [value]="element.id" (change)="check($event)" class="to-do"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsColis"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsColis;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator class="my-2" color="primary"
+                 (page)="pageEventColis=setPageColis($event)"
+                 [length]="totalItem" showFirstLastButtons
+                 [pageIndex]="page"
+                 [pageSize]="25"
+                 [pageSizeOptions]="[25,50,200,500]"></mat-paginator>
+</div>
+
+<div mat-dialog-actions>
+  <div class="w-100 text-center">
+    <button mat-raised-button color="primary" (click)="expeditionOpenDoSave()"><mat-icon>save</mat-icon> Enregistrer</button>
+  </div>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white" [fullScreen]="false">
+</ngx-spinner>

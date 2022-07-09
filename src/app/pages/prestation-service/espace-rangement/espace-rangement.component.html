@@ -1,0 +1,39 @@
+<div class="container py-5">
+
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="40" class="pr-sm-4 animate__animated animate__fadeInLeft">
+
+      <div class="conatiner animate__animated animate__backInDown wow">
+        <div class="main-slider">
+          <div class="swiper-container" [swiper]="config">
+            <div class="swiper-wrapper">
+              <div *ngFor="let img of myCarouselImages" class="swiper-slide slide-item">
+                <div fxLayout="row wrap">
+                  <!-- first column -->
+
+                  <div fxFlex="100" [ngStyle]="getBgImage(img.img)">
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div id="swiper-pagination-12" class="swiper-pagination white swiper-pagination-personaliser row justify-content-center"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-sm="60" class="pt-sm-0 pt-4 animate__animated animate__delay-1s animate__fadeInLeft">
+
+      <div id="page3" class="text-justify">
+
+      </div>
+
+    </div>
+  </div>
+</div>

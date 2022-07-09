@@ -1,0 +1,43 @@
+<div *ngIf="colisLastregister">
+  <h4 class="font-4xl text-center text-uppercase text-muted">{{appSettings.langue?.home_best_trajet}}</h4>
+  <div class="swiper-container" [swiper]="config">
+    <div class="swiper-wrapper h-auto">
+      <div class="swiper-slide bg-muted3 py-5 lh text-white rounded" *ngFor="let item of colisLastregister">
+
+        <div  fxLayout="column" fxLayoutAlign="space-around center">
+          <span class="text-uppercase text-center font-2xl">{{item.nature}}</span>
+          <br/>
+
+          <span class="font-xl"><!--<mat-icon>access_time</mat-icon>-->  {{item.amountExpedition | number: '0.0'}} XAF</span>
+          <br/>
+
+          <img src="assets/img/icone/images.png" class="img-fluid rounded-circle" alt="small colis">
+
+          <br/>
+
+          <div class="bg-maron py-2  text-danger rounded w-100">
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+              <span class="text-uppercase font-weight-bold"><mat-icon class="font-xl">place</mat-icon> {{item.depart?.ville?.paysName +' -> '+item.depart?.ville?.name}}</span>
+
+
+              <mat-icon>arrow_downward</mat-icon>
+
+              <span class="text-uppercase font-weight-bold"><mat-icon class="font-xl">place</mat-icon>  {{item.arrive?.ville?.paysName +' -> '+item.arrive?.ville?.name}}</span>
+            </div>
+
+          </div>
+
+          <br/>
+
+
+          <span class="font-2xl" *ngIf="item.poids"><mat-icon>hourglass_full</mat-icon> {{item.poids}} KG</span>
+
+        </div>
+
+      </div>
+    </div>
+
+    <button mat-mini-fab color="accent" class="swiper-button-prev swipe-arrow bg-muted"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-mini-fab color="accent" class="swiper-button-next swipe-arrow bg-muted"><mat-icon>keyboard_arrow_right</mat-icon></button>
+  </div>
+</div>

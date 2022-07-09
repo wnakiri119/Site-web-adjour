@@ -1,0 +1,85 @@
+<div class="container">
+  <div fxLayout="row wrap" class="border-left">
+    <div fxFlex="100" fxFlex.gt-sm="30">
+      <div fxLayout="row">
+        <div fxFlex="90" class="border-bottom">
+          <h3 class="text-muted text-center">Model Message</h3>
+        </div>
+        <div fxFlex="10" class="border-bottom">
+          <button mat-icon-button matTooltip="parametre Messagerie"><mat-icon>settings_applications</mat-icon></button>
+        </div>
+      </div>
+
+      <div fxLayout="row" *ngFor="let template of modelEmails" class="border-bottom" fxLayoutAlign="star center">
+        <div fxFlex="90">
+          <button mat-menu-item  class="w-100 text-muted py-1 border-0 text-left" (click)="selectTemplate(template)">{{template.subject}}</button>
+        </div>
+        <div fxFlex="10">
+          <button mat-icon-button color="warn" (click)="modelEmailDelete(template.id)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-sm="70" class="border-left h-100">
+      <form [formGroup]="formEmail">
+        <div fxLayout="row wrap" class="pl-sm-2">
+          <div fxFlex="100">
+            <mat-form-field appearance="legacy" class="w-100" [style.fontSize.px]="10">
+              <mat-label>From</mat-label>
+              <input matInput [disabled]="true" [value]="'Bim-Sarl'">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100">
+            <mat-form-field appearance="legacy" class="w-100" [style.fontSize.px]="12">
+              <mat-label>To</mat-label>
+              <input matInput formControlName="destinationAdresse">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100">
+            <mat-form-field appearance="legacy" class="w-100" [style.fontSize.px]="12">
+              <mat-label>Sujet</mat-label>
+              <input matInput formControlName="subject">
+            </mat-form-field>
+          </div>
+          <div class="w-100">
+            <ckeditor
+              formControlName="message"
+              [config]="{uiColor: '#DADADA'}"
+              [readonly]="false"
+              (change)="onChange($event)"
+              (editorChange)="onEditorChange($event)"
+              (ready)="onReady($event)"
+              (focus)="onFocus($event)"
+              (blur)="onBlur($event)"
+              (contentDom)="onContentDom($event)"
+              (fileUploadRequest)="onFileUploadRequest($event)"
+              (fileUploadResponse)="onFileUploadResponse($event)"
+              (paste)="onPaste($event)"
+              (drop)="onDrop($event)"
+              debounce="500">
+            </ckeditor>
+          </div>
+
+          <div id="tags_container" *ngIf="showTagPop">
+            <button mat-menu-item *ngFor="let t of tags | searchByName: currentTagName"
+                    class="w-100 text-muted my-1 border-0 text-left" (click)="choixTag(t)">
+                {{t.name}}
+            </button>
+          </div>
+          <div fxFlex="100">
+            <div class="my-4 text-center">
+              <button mat-raised-button color="primary" (click)="saveEmailTemplate(false)" [disabled]="formEmail.invalid"><mat-icon>send</mat-icon> Envoyer</button>
+              <button mat-raised-button type="button" [disabled]="formEmail.invalid" (click)="saveEmailTemplate(true)" class="ml-1" color="accent"><mat-icon>save</mat-icon> Envoyer&Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+</ngx-spinner>

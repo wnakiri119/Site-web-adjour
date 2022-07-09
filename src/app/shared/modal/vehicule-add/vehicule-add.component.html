@@ -1,0 +1,36 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Chauffeur</h4>
+</div>
+
+<div mat-dialog-content>
+
+  <form (ngSubmit)="saveVehicule()" [formGroup]="formGroup">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>matricule</mat-label>
+      <input matInput formControlName="imatriculation">
+      <mat-error *ngIf="formGroup.controls.imatriculation.errors?.required">Matricule</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Marque</mat-label>
+      <input matInput formControlName="marque">
+      <mat-error *ngIf="formGroup.controls.marque.errors?.required">marqueVehicule</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>model du vehicule</mat-label>
+      <input matInput formControlName="model">
+      <mat-error *ngIf="formGroup.controls.model.errors?.required">Model du vehicule</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      <button mat-raised-button color="warn" class="ml-3" type="button"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+  </form>
+</div>
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

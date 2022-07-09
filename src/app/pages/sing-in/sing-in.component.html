@@ -1,0 +1,45 @@
+<div class="container bg-muted2 rounded my-5 py-5" fxFlex="100" fxFlexOffset.gt-sm="33.3" fxFlex.gt-sm="33.3">
+  <mat-card>
+    <h3 class="text-center font-3xl text-uppercase">{{appSetting.langue.signIn_form_title}}</h3>
+    <br/>
+    <form (ngSubmit)="sinGin()" [formGroup]="singInForm">
+
+      <h4 class="text-danger">{{errorMessage}}</h4>
+      <div fxLayout="row wrap" fxLayoutAlign="space-around start">
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{appSetting.langue?.register_form_username}}</mat-label>
+            <input matInput formControlName="username" class="form-control-lg">
+            <mat-error *ngIf="singInForm.controls.username.errors?.required">{{appSetting.langue.register_form_error_username_required}}</mat-error>
+            <mat-error *ngIf="singInForm.controls.username.errors?.invalidEmail">{{appSetting.langue.register_form_error_username_invalid_email}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{appSetting.langue?.register_form_password}}</mat-label>
+            <input matInput formControlName="password" type="password" class="form-control-lg">
+            <mat-error *ngIf="singInForm.controls.password.errors?.required">{{appSetting.langue.register_form_error_password_required}}</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <button mat-raised-button color="warn">{{appSetting.langue.home_signIn_btn}}</button>
+      </div>
+
+    </form>
+
+  </mat-card>
+  <div style="height: 200px"></div>
+</div>
+
+<ngx-spinner
+  name="auth"
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>

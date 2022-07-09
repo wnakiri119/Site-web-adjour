@@ -1,0 +1,33 @@
+<div class="main-slider">
+  <div class="swiper-container" (indexChange)="doEffect()" [swiper]="config">
+    <div class="swiper-wrapper">
+      <div *ngFor="let img of myCarouselImages" class="swiper-slide slide-item">
+        <div [ngStyle]="getBgImage(img.img)">
+          <div  class="text-white text-center mask carrousel-content slide-app">
+
+
+            <p *ngIf="show" class="text-uppercase font-6xl  lh-default animate__animated animate__delay-1s animate__fadeInDown wow">
+              <span *ngIf="appSettings.code_langue == appSettings.codes[0]">{{img.title_fr}}</span>
+              <span *ngIf="appSettings.code_langue == appSettings.codes[1]">{{img.title_en}}</span>
+            </p>
+            <br/>
+            <br/>
+
+            <p *ngIf="show" class="font-3xl  lh-default animate__animated animate__delay-2s animate__fadeInDown wow">
+              <span *ngIf="appSettings.code_langue == appSettings.codes[0]">{{img.subtitle_fr}}</span>
+              <span *ngIf="appSettings.code_langue == appSettings.codes[1]">{{img.subtitle_en}}</span>
+            </p>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="swiper-pagination white swiper-pagination-personaliser row justify-content-center"></div>
+    <button mat-icon-button  class="swiper-button-prev swipe-arrow"><mat-icon>chevron_left</mat-icon></button>
+    <button mat-icon-button  class="swiper-button-next swipe-arrow"><mat-icon>chevron_right</mat-icon></button>
+  </div>
+</div>

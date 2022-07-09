@@ -1,0 +1,207 @@
+<div class="container">
+  <mat-tab-group class="my-2 w-100" *ngIf="colis">
+    <mat-tab label="Info Colis">
+      <div fxLayout="row wrap">
+
+        <div fxFlex="100" fxFlex.gt-sm="70">
+
+          <table class="table table-borderless w-100">
+            <tr class="font-weight-bold text-danger">
+              <th>CODE</th>
+              <td>{{colis.code}}</td>
+              <th>ENREGISTRE PAR</th>
+              <td colspan="3">{{colis.enregistrerPar?.userAccount?.name +' '+ colis.enregistrerPar?.userAccount?.surname}}</td>
+            </tr>
+            <tr>
+              <th>NOM</th>
+              <td>{{colis.name}}</td>
+              <th>NATURE</th>
+              <td colspan="3">{{colis.name}}</td>
+            </tr>
+            <tr>
+              <th>poids</th>
+              <td>{{colis.poids?colis.poids+'KG':'/'}}</td>
+              <th>HAUTEUR</th>
+              <td>{{colis.hauteur?colis.hauteur+'m':'/'}}</td>
+              <th>LARGEUR</th>
+              <td>{{colis.largeur?colis.largeur + 'm':'/'}}</td>
+            </tr>
+            <tr>
+              <th>MONTANT EXPEDITION</th>
+              <td>{{colis.amountExpedition | number: '0.0'}}XAF</td>
+            </tr>
+            <tr>
+              <th>STATUS COLIS</th>
+              <td>
+                <span>{{colis.colisStatus?.value}}</span><br/>
+              </td>
+            </tr>
+            <tr>
+              <th>ENREGISTRE LE</th>
+              <td>{{colis.dateCreated}}</td>
+              <th>MODIFIE LE</th>
+              <td colspan="3">{{colis.dateLastUpdate}}</td>
+            </tr>
+            <tr>
+              <th>DESCRIPTION</th>
+              <td colspan="5">{{colis.description}}</td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="30">
+
+
+
+
+
+        </div>
+
+      </div>
+
+      <div fxLayoutAlign="center">
+
+        <button mat-raised-button color="warn" (click)="imprimer()"><mat-icon>save</mat-icon> Imprimer</button>
+      </div>
+
+    </mat-tab>
+
+
+    <mat-tab label="Info Client">
+
+      <table class="table table-borderless w-100">
+        <tr class="font-weight-bold text-danger">
+          <th>CODE CLIENT</th>
+          <td COLSPAN="5">{{colis.client?.codeClient}}</td>
+        </tr>
+        <tr>
+          <th>NOM</th>
+          <td>{{colis.client?.name}}</td>
+          <th>PRENOM</th>
+          <td>{{colis.client?.surname}}</td>
+        </tr>
+        <tr>
+          <th>TELEPHONE</th>
+          <td>{{colis.client?.telephone}}</td>
+          <th>EMAIL</th>
+          <td>{{colis.client?.email}}</td>
+        </tr>
+        <tr>
+          <th>DATE NAISSANCE</th>
+          <td>{{colis.client?.dateNaissance}}</td>
+          <th>SEXE</th>
+          <td>{{colis.client?.sexe}}</td>
+        </tr>
+        <tr>
+          <th>ENREGISTRE LE</th>
+          <td>{{colis.client?.dateCreated}}</td>
+          <th>MODIFIE LE</th>
+          <td colspan="3">{{colis.client?.dateLastUpdate}}</td>
+        </tr>
+        <tr>
+          <th>CODE AGENCE</th>
+          <td colspan="4">{{colis.client?.agenceEnregistrement?.code}}</td>
+        </tr>
+      </table>
+
+
+    </mat-tab>
+
+
+    <mat-tab label="Info destinataire">
+
+      <table class="table table-borderless w-100">
+
+        <tr>
+          <th>NOM</th>
+          <td>{{colis.destinataire?.name}}</td>
+          <th>PRENOM</th>
+          <td>{{colis.destinataire?.surname}}</td>
+        </tr>
+        <tr>
+          <th>TELEPHONE</th>
+          <td>{{colis.destinataire?.telephone}}</td>
+          <th>EMAIL</th>
+          <td>{{colis.destinataire?.email}}</td>
+        </tr>
+        <tr>
+          <th>ENREGISTRE LE</th>
+          <td>{{colis.destinataire?.dateCreated}}</td>
+          <th>MODIFIE LE</th>
+          <td colspan="3">{{colis.destinataire?.dateLastUpdate}}</td>
+        </tr>
+        <tr>
+          <th>RELATION CLIENT DESTINATAIRE</th>
+          <td colspan="3">{{colis.destinataire?.relationClientDestinataire}}</td>
+        </tr>
+
+      </table>
+
+    </mat-tab>
+
+    <mat-tab label="Adresse">
+
+
+      <div fxLayout="row wrap">
+
+        <div fxFlex="100" fxFlex.gt-sm="50" class="pr-1">
+
+          <h3 class="text-info text-uppercase text-center">Agence Source</h3>
+
+
+          <table class="table table-borderless">
+            <tr class="text-danger">
+              <th>CODE AGENCE</th>
+              <td>{{colis.depart?.code}}</td>
+            </tr>
+            <tr>
+              <th>NOM</th>
+              <td>{{colis.depart?.name}}</td>
+            </tr>
+            <tr>
+              <th>VILLE</th>
+              <td>{{colis.depart?.ville?.name}}</td>
+            </tr>
+
+          </table>
+
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="50" class="pr-1">
+
+          <h3 class="text-info text-uppercase text-center">Agence Destination</h3>
+
+
+          <table class="table table-borderless">
+            <tr class="text-danger">
+              <th>CODE AGENCE</th>
+              <td>{{colis.arrive?.code}}</td>
+            </tr>
+            <tr>
+              <th>NOM</th>
+              <td>{{colis.arrive?.name}}</td>
+            </tr>
+            <tr>
+              <th>VILLE</th>
+              <td>{{colis.arrive?.ville?.name}}</td>
+            </tr>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<app-footer class="w-100"></app-footer>
+
+<ngx-spinner
+  size="small"
+  color="white">
+  template="<img src='assets/logo/logo_entreprise.png' />"
+</ngx-spinner>
+

@@ -1,0 +1,55 @@
+<div mat-dialog-title>
+  <button mat-button (click)="close()" class="float-left"><mat-icon>close</mat-icon></button>
+  <h4 class="text-center">Pays</h4>
+</div>
+
+<div mat-dialog-content>
+  <form (ngSubmit)="saveVille()" [formGroup]="villeForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="75">
+        <mat-form-field appearance="outline" class="w-100 pr-2">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="villeForm.controls.name.errors?.required">veillez entrer le nom du pays</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25" class="mt-4">
+        <mat-checkbox formControlName="actived"> Activé</mat-checkbox>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Longitude</mat-label>
+          <input matInput formControlName="longitude">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>latitude</mat-label>
+          <input matInput formControlName="latitude">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" *ngIf="pays">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pays</mat-label>
+          <mat-select formControlName="paysId">
+            <mat-option *ngFor="let p of pays" [value]="p.id">{{p.name}}</mat-option>
+            <mat-option (click)="openPaysAddModal()"><mat-icon>add</mat-icon>Ajouter pays</mat-option>
+          </mat-select>
+          <mat-error *ngIf="villeForm.controls.paysId.errors?.required">veillez selectionner un pays</mat-error>
+        </mat-form-field>
+      </div>
+
+
+
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary"><mat-icon>save</mat-icon> Enregistrer</button>
+      <button mat-raised-button color="warn" class="ml-3" type="button"><mat-icon>refresh</mat-icon> Annuler</button>
+    </div>
+  </form>
+</div>
+
