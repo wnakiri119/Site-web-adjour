@@ -144,16 +144,16 @@ export class AppSettingService {
 
 
   inFoEnterPriseFR = {
-    name: 'BINSARL',
-    slogan: 'klqdsfqjlfn,qkljfqklfjklqsjfklqsjfklqklf',
-    contact1: '689-243-85',
-    contact2: '689-253-85',
-    contact3: '689-253-85',
-    email: 'gqshjfq@qdghqj.com',
-    adrese1Tile: 'Tchad',
-    adrese1Value: 'Avenue des 5 manguier',
-    adrese2Title: 'Cameroun',
-    adrese2Value: 'Akoa soudanaise',
+    name: 'ADJOUR - TECH',
+    slogan: 'La solution de haute perfomance pour tout vos systèmes d information',
+    contact1: '656 48 25 95',
+    contact2: '62 73 05 77',
+    contact3: '697 42 74 14',
+    email: 'adjourservicecleint.com',
+    adrese1Tile: 'Cameroun ',
+    adrese1Value: 'Douala Fin barrière ESSEC',
+    adrese2Title: 'Tchad',
+    adrese2Value: 'Moursal',
   }
 
 

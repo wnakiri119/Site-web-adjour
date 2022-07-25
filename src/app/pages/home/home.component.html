@@ -149,20 +149,20 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{appSettings.langue?.contact_us_form_label_subject}}</mat-label>
                     <input matInput formControlName="subject">
-                    <mat-error *ngIf="contactForm.controls.subject.errors?.required">veillez entrer le sujet</mat-error>
+                    <mat-error *ngIf="contactForm.controls.subject.errors?.required">Veillez entrer le sujet</mat-error>
                   </mat-form-field>
                 </div>
                 <div fxFlex="100" class="animate__animated animate__fadeInLeft animate__delay-3s wow">
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{appSettings.langue?.contact_us_form_label_message}}</mat-label>
                     <textarea matInput formControlName="message" rows="9"></textarea>
-                    <mat-error *ngIf="contactForm.controls.message.errors?.required">Dites nous quelque chose</mat-error>
+                    <mat-error *ngIf="contactForm.controls.message.errors?.required">Dites-nous quelque chose</mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <br/>
 
-              <button mat-raised-button color="warn" class="animate__animated animate__fadeInLeft animate__delay-4s wow">{{appSettings.langue?.contact_us_form_send_btn}} <mat-icon>send</mat-icon></button>
+              <button mat-raised-button color="warn" class="animate__animated animate__fadeInLeft animate__delay-4s wow">{{appSettings.langue?.contact_us_form_send_btn}} <mat-icon>envoyer</mat-icon></button>
             </form>
 
           </mat-card>
