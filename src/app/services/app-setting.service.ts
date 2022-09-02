@@ -145,11 +145,11 @@ export class AppSettingService {
 
   inFoEnterPriseFR = {
     name: 'ADJOUR - TECH',
-    slogan: 'La solution de haute perfomance pour tout vos systèmes d information',
+    slogan: 'La solution de haute perfomance pour tous vos systèmes d information',
     contact1: '656 48 25 95',
     contact2: '62 73 05 77',
     contact3: '697 42 74 14',
-    email: 'adjourservicecleint.com',
+    email: 'adjours-tech@gmail.com',
     adrese1Tile: 'Cameroun ',
     adrese1Value: 'Douala Fin barrière ESSEC',
     adrese2Title: 'Tchad',

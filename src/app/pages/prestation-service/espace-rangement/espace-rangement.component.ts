@@ -17,9 +17,10 @@ export class EspaceRangementComponent implements OnInit {
   };
 
   myCarouselImages = [
-    {img: 'assets/img/pages/expace-rangement-carousel/expace-rangement.jpg'},
-    {img: 'assets/img/pages/expace-rangement-carousel/expace-rangement-2.jpg'},
-    {img: 'assets/img/pages/expace-rangement-carousel/Transport-Vehicule-Afrique.png'},
+    {img: 'assets/img/pages/expace-rangement-carousel/aéroport_Douala.png'},
+    {img: 'assets/img/pages/expace-rangement-carousel/aéroport_Douala.png'},
+    {img: 'assets/img/pages/expace-rangement-carousel/AvionEnVol.png'},
+    {img: 'assets/img/pages/expace-rangement-carousel/Flyers_Reservation22.png'},
   ]
 
 

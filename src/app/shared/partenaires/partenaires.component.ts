@@ -10,13 +10,11 @@ import {AppSettingService} from "../../services/app-setting.service";
 export class PartenairesComponent implements OnInit, AfterViewInit {
 
   cardsImages = [
-    {img: 'assets/img/partenaire/20GFlG3J.jpeg', name:'Camtel'},
-    {img: 'assets/img/partenaire/kgjjgjjp2ixvrjtpfyob.png', name:'Airtel'},
-    {img: 'assets/img/partenaire/logo-dla.png', name: 'Areoport Du Cameroun'},
+    {img: 'assets/img/partenaire/Sans titre-1.png', name:'AIR-FRANCE'},
+    {img: 'assets/img/partenaire/logodoualaire.jpg', name:'DOUALAIR'},
+    {img: 'assets/img/partenaire/Kaza-Kid.jpg', name:  'KAZAKID'},
     {img: 'assets/img/partenaire/logo_aeroport_douala.png', name: 'Aréoport International de Douala'},
-    {img: 'assets/img/partenaire/mtn.jpg', name: 'MTN'},
-    {img: 'assets/img/partenaire/orange_logo.png', name: 'Orange Cameroun'},
-    {img: 'assets/img/partenaire/pmPRYCGU.png', name:'CEMAC'},
+   
   ]
 
   config: SwiperConfigInterface = {};

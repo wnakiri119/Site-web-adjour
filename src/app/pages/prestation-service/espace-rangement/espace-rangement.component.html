@@ -1,17 +1,21 @@
+<body>
+  <h1>
+  <h1><marquee bgcolor="#ffffff" style="color: black;font-family: Book Antiqua" behavior="alternate"> RESERVATIONS DES BILLETS D'AVION & TRAINS </marquee></h1>
 <div class="container py-5">
 
   <div fxLayout="row wrap">
-    <div fxFlex="100" fxFlex.gt-sm="40" class="pr-sm-4 animate__animated animate__fadeInLeft">
+    <div fxFlex="300" fxFlex.gt-sm="40" class="pr-sm-4 animate__animated animate__fadeInLeft">
 
       <div class="conatiner animate__animated animate__backInDown wow">
         <div class="main-slider">
           <div class="swiper-container" [swiper]="config">
             <div class="swiper-wrapper">
               <div *ngFor="let img of myCarouselImages" class="swiper-slide slide-item">
+
                 <div fxLayout="row wrap">
                   <!-- first column -->
 
-                  <div fxFlex="100" [ngStyle]="getBgImage(img.img)">
+                  <div fxFlex="300" [ngStyle]="getBgImage(img.img)">
 
 
                   </div>
@@ -36,4 +40,5 @@
 
     </div>
   </div>
-</div>
+</div></h1>
+</body>

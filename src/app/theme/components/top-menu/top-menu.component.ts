@@ -11,10 +11,10 @@ import {Router} from "@angular/router";
 export class TopMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   massages = [
-    {icon:'commute', value:'survived not only'},
-    {icon:'fingerprint', value:'There are many variation'},
-    {icon:'commute', value:' passage of Lorem Ipsum, you'},
-    {icon:'drafts', value:'to generate Lorem Ipsum which'},
+    {icon:'commute', value:'ADJOUR - TECHNOLOGIE C EST'},
+    {icon:'fingerprint', value:'Une solution de haute'},
+    {icon:'commute', value:'Performance pour vos'},
+    {icon:'drafts', value:'Systèmes d information'},
 
   ]
 

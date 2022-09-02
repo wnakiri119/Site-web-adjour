@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     {img: 'assets/img/ville-visite/douala2.jpg', name:'Douala'},
     {img: 'assets/img/ville-visite/view-over-yaounde-capital.jpg', name:'Yaoundé'},
     {img: 'assets/img/ville-visite/unnamed.jpg', name:'Kribi'},
-    {img: 'assets/img/ville-visite/kribi2.jpg', name:'Logos'},
+    {img: 'assets/img/ville-visite/kribi2.jpg', name:'Lagos'},
     {img: 'assets/img/ville-visite/ndjamena.jpg', name:'N\'Djamena'},
     {img: 'assets/img/ville-visite/kribi.jpg', name:'Konacri'},
     {img: 'assets/img/ville-visite/ndamena2.jpg', name:'Libreville/Gabon'}

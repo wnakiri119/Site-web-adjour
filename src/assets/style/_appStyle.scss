@@ -8,11 +8,12 @@ body{
 
 app-footer{
   width: 100%;
+  height: 60%;
 }
 
 .s-error{
-  background-color: #F80000;
-  color: white;
+  background-color: #0d90db;
+  color: rgb(16, 12, 241);
   padding: 10px;
 }
 
@@ -133,7 +134,7 @@ a{
   color: white;
 }
 .bg-hover-muted:hover{
-  background-color: #C9C9BE;
+  background-color: #0da9e7;
 }
 
 .font-xl {
@@ -164,8 +165,8 @@ a{
   font-size: 4rem;
 }
 .logo{
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
 }
 
 /*img.logo {
@@ -206,7 +207,7 @@ button.swipe-arrow{
   opacity: 0.6;
   width: 50px;
   height: auto;
-  background-image: none;
+  background-image:blue;
 }
 .swiper-slide{
   background-size: 100%;
@@ -218,8 +219,8 @@ button.swipe-arrow{
 }
 
 .social-icon{
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   fill: #8f8f8f;
   outline: none;
@@ -240,11 +241,11 @@ li{
   height: 40px;
   cursor: pointer;
   z-index: 999999;
-  right: 20px;
-  bottom: 20px;
+  right: 30px;
+  bottom: 30px;
   opacity: .5;
   color: #fff;
-  background-color: rgba(0,0,0,.75);
+  background-color: rgba(24, 187, 209, 0.75);
   border-radius: 4px;
   &:hover{
     opacity: 0.9;
@@ -252,10 +253,10 @@ li{
 }
 
 .transition{
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -ms-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
 }
 
 @media (max-width: 975px) {
